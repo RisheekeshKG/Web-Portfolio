@@ -12,7 +12,7 @@ const elsewhere = [
 
 export function Contact() {
   return (
-    <Section id="contact" index="06" title="Get in touch">
+    <Section id="contact" title="Get in touch">
       <TiltCard tilt={2} className="p-6 sm:p-8">
         <Stagger className="space-y-6" stagger={0.09}>
           <StaggerItem>

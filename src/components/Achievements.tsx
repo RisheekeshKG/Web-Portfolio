@@ -74,7 +74,7 @@ function Card({
 
 export function Achievements() {
   return (
-    <Section id="achievements" index="05" title="Awards & Certifications">
+    <Section id="achievements" title="Awards & Certifications">
       <div className="grid gap-10 lg:grid-cols-2 lg:gap-8">
         <div>
           <Reveal>

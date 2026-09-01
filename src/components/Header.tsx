@@ -22,7 +22,7 @@ export function Header() {
           </a>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <nav aria-label="Sections" className="hidden md:block">
+            <nav aria-label="Sections" className="hidden lg:block">
               <ul className="flex items-center gap-1">
                 {sections.map((section) => {
                   const isActive = active === section.id
@@ -58,7 +58,7 @@ export function Header() {
               aria-label="Open menu"
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className="grid size-10 place-items-center rounded-md border border-line text-ink-muted transition-colors hover:border-accent hover:text-ink sm:size-9 md:hidden"
+              className="grid size-10 place-items-center rounded-md border border-line text-ink-muted transition-colors hover:border-accent hover:text-ink sm:size-9 lg:hidden"
             >
               <svg
                 viewBox="0 0 24 24"

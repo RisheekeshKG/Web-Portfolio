@@ -2,16 +2,17 @@ import { useRef, type ReactNode } from 'react'
 import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react'
 import { AnimatedText } from '@/components/motion/AnimatedText'
 import { Reveal } from '@/components/Reveal'
+import { sectionIndex } from '@/data/site'
 import { CONTAINER } from '@/lib/layout'
 
 type SectionProps = {
   id: string
-  index: string
   title: string
   children: ReactNode
 }
 
-export function Section({ id, index, title, children }: SectionProps) {
+export function Section({ id, title, children }: SectionProps) {
+  const index = sectionIndex(id)
   const ref = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,

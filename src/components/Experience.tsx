@@ -1,9 +1,8 @@
 import { useRef } from 'react'
 import { motion, useScroll } from 'motion/react'
-import { Reveal } from '@/components/Reveal'
 import { Section } from '@/components/Section'
 import { Stagger, StaggerItem } from '@/components/motion/Stagger'
-import { experience, systemProjects, type Role } from '@/data/site'
+import { experience, type Role } from '@/data/site'
 
 function Entry({ role }: { role: Role }) {
   return (
@@ -37,18 +36,6 @@ function Entry({ role }: { role: Role }) {
   )
 }
 
-function GroupLabel({ children, className = '' }: { children: string; className?: string }) {
-  return (
-    <Reveal>
-      <h3
-        className={`pl-6 font-mono text-xs tracking-wide text-ink-muted uppercase sm:pl-8 ${className}`}
-      >
-        {children}
-      </h3>
-    </Reveal>
-  )
-}
-
 export function Experience() {
   const containerRef = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
@@ -57,7 +44,7 @@ export function Experience() {
   })
 
   return (
-    <Section id="experience" index="02" title="Experience">
+    <Section id="experience" title="Experience">
       <div ref={containerRef} className="relative">
         {/* One rule runs behind both groups and fills as you scroll past. */}
         <div
@@ -72,16 +59,8 @@ export function Experience() {
           className="absolute top-2 bottom-2 left-0 w-px origin-top bg-gradient-to-b from-accent to-accent-2"
         />
 
-        <GroupLabel>Internships</GroupLabel>
-        <Stagger as="ol" className="mt-4 space-y-10" stagger={0.12}>
+        <Stagger as="ol" className="space-y-10" stagger={0.12}>
           {experience.map((role) => (
-            <Entry key={`${role.org}-${role.title}`} role={role} />
-          ))}
-        </Stagger>
-
-        <GroupLabel className="mt-12">System Project</GroupLabel>
-        <Stagger as="ol" className="mt-4 space-y-10" stagger={0.12}>
-          {systemProjects.map((role) => (
             <Entry key={`${role.org}-${role.title}`} role={role} />
           ))}
         </Stagger>

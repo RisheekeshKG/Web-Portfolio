@@ -17,6 +17,7 @@ export const site = {
 export const sections = [
   { id: 'about', label: 'About' },
   { id: 'experience', label: 'Experience' },
+  { id: 'system', label: 'System Project' },
   { id: 'projects', label: 'Projects' },
   { id: 'research', label: 'Research' },
   { id: 'achievements', label: 'Awards' },
@@ -24,6 +25,14 @@ export const sections = [
 ] as const
 
 export const sectionIds = sections.map((section) => section.id)
+
+/**
+ * Display number for a section, taken from its position in `sections` so
+ * inserting or reordering one can never leave a stale hardcoded index.
+ */
+export function sectionIndex(id: string) {
+  return String(sections.findIndex((section) => section.id === id) + 1).padStart(2, '0')
+}
 
 export const about = [
   'I am an AI and Data Science undergraduate at PSG iTech, concurrently pursuing a BS in Data Science at IIT Madras. Most of my work sits where machine learning meets a real interface — agent workflows, vision systems, and the applications that make them usable.',
@@ -91,7 +100,7 @@ export const experience: Role[] = [
   },
 ]
 
-/** Team/competition work — kept apart from the internships above. */
+/** Team/competition work. Its own section — not employment. */
 export const systemProjects: Role[] = [
   {
     org: 'PSG Team Aurora',

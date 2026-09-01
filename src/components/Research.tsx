@@ -6,7 +6,7 @@ import { research } from '@/data/site'
 
 export function Research() {
   return (
-    <Section id="research" index="04" title="Research">
+    <Section id="research" title="Research">
       <TiltCard as="article" tilt={2} className="group/card p-5 sm:p-7">
         <div className="flex flex-wrap items-center gap-2">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 px-2.5 py-0.5 font-mono text-xs text-accent">

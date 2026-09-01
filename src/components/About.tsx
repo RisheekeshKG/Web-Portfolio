@@ -18,7 +18,7 @@ function Tag({ children }: { children: React.ReactNode }) {
 
 export function About() {
   return (
-    <Section id="about" index="01" title="About">
+    <Section id="about" title="About">
       <Stagger className="max-w-xl space-y-4">
         {about.map((paragraph) => (
           <StaggerItem key={paragraph}>

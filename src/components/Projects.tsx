@@ -98,7 +98,7 @@ function ProjectCard({ project, featured }: { project: Project; featured?: boole
 
 export function Projects() {
   return (
-    <Section id="projects" index="03" title="Projects">
+    <Section id="projects" title="Projects">
       <Stagger className="grid gap-4 sm:grid-cols-2" stagger={0.1}>
         {projects.map((project, index) => (
           <StaggerItem

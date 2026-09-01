@@ -41,7 +41,7 @@ export function MobileMenu({
           animate={reducedMotion ? { opacity: 1 } : { clipPath: 'inset(0 0 0% 0)' }}
           exit={reducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
           transition={{ duration: 0.55, ease: easeOutExpo }}
-          className="fixed inset-0 z-50 flex flex-col bg-canvas md:hidden"
+          className="fixed inset-0 z-50 flex flex-col bg-canvas lg:hidden"
         >
           <div className="flex items-center justify-between border-b border-line px-6 py-3.5">
             <span className="font-semibold tracking-tight">{site.name}</span>
