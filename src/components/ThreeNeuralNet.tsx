@@ -217,13 +217,17 @@ export function ThreeNeuralNet() {
         material.needsUpdate = true
       }
 
-      nodeMaterial.color = accent
-      pulseMaterial.color = accent2
-      edgeMaterial.color = accent
+      // Dark: accent glow. Light: black ink. The edges stay lighter than the
+      // nodes there so the travelling pulses remain visible against them —
+      // black-on-black would hide the signal entirely.
+      const ink = new Color(cssColorHex('--ink', 0x121620))
+      nodeMaterial.color = dark ? accent : ink
+      pulseMaterial.color = dark ? accent2 : ink
+      edgeMaterial.color = dark ? accent : ink
 
       nodeMaterial.opacity = dark ? 1 : 0.95
-      pulseMaterial.opacity = dark ? 1 : 0.95
-      edgeMaterial.opacity = dark ? 0.2 : 0.55
+      pulseMaterial.opacity = 1
+      edgeMaterial.opacity = dark ? 0.2 : 0.3
     }
     applyTheme()
 
