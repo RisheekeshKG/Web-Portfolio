@@ -157,7 +157,7 @@ export const research = {
 
 export const competitions: { title: string; event: string; year: string }[] = [
   { title: 'First Runner-up', event: 'GreatLakesXSAP Hackfest', year: '2026' },
-  { title: 'Second place', event: 'Market Minds, Yugam 2024', year: '2024' },
+  { title: 'Second place', event: 'Market Minds, Yugam', year: '2024' },
   { title: 'Finalist', event: 'Hack the Future Hackathon', year: '2025' },
   { title: 'Finalist', event: 'SanDisk Hackathon', year: '2026' },
   { title: 'Finalist', event: 'AISE-Hack 1.0', year: '2026' },
