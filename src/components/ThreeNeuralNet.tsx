@@ -8,6 +8,7 @@ import {
   Group,
   LineBasicMaterial,
   LineSegments,
+  NormalBlending,
   PerspectiveCamera,
   Points,
   PointsMaterial,
@@ -51,18 +52,35 @@ function glowTexture() {
 }
 
 /**
- * Resolves any CSS colour the browser understands (the palette is oklch) into
- * something THREE.Color accepts, by letting canvas normalise it to hex.
+ * Resolves a CSS custom property to an sRGB hex number.
+ *
+ * The palette is authored in oklch, and Chrome's canvas now *preserves*
+ * `oklch(...)` in `fillStyle` rather than normalising it to hex — which
+ * THREE.Color cannot parse, so it silently falls back to white. Painting a
+ * single pixel and reading it back forces the browser to rasterise to sRGB
+ * bytes, which works whatever colour syntax the stylesheet uses.
  */
-function cssColor(variable: string, fallback: string) {
+function cssColorHex(variable: string, fallback: number) {
   const raw = getComputedStyle(document.documentElement)
     .getPropertyValue(variable)
     .trim()
   if (!raw) return fallback
+
   try {
-    const ctx = document.createElement('canvas').getContext('2d')!
+    const canvas = document.createElement('canvas')
+    canvas.width = canvas.height = 1
+    const ctx = canvas.getContext('2d', { willReadFrequently: true })
+    if (!ctx) return fallback
+
+    // An invalid value leaves fillStyle untouched, so seed a sentinel we can
+    // distinguish from a genuine black.
+    ctx.fillStyle = '#000000'
     ctx.fillStyle = raw
-    return ctx.fillStyle as string
+    if (ctx.fillStyle === '#000000' && !/black|#000/i.test(raw)) return fallback
+
+    ctx.fillRect(0, 0, 1, 1)
+    const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data
+    return (r << 16) | (g << 8) | b
   } catch {
     return fallback
   }
@@ -187,19 +205,34 @@ export function ThreeNeuralNet() {
     group.add(pulsePoints)
 
     function applyTheme() {
-      const accent = new Color(cssColor('--accent', '#8aa0f8'))
-      const accent2 = new Color(cssColor('--accent-2', '#e08ae8'))
+      const accent = new Color(cssColorHex('--accent', 0x8aa0f8))
+      const accent2 = new Color(cssColorHex('--accent-2', 0xe08ae8))
       const dark = document.documentElement.classList.contains('dark')
+      // Additive blending only works over a dark ground — on a light one it
+      // saturates toward white and the network vanishes. Light mode draws
+      // normally instead, so the scene reads as dark ink on a pale page.
+      const blending = dark ? AdditiveBlending : NormalBlending
+      for (const material of [nodeMaterial, edgeMaterial, pulseMaterial]) {
+        material.blending = blending
+        material.needsUpdate = true
+      }
+
       nodeMaterial.color = accent
       pulseMaterial.color = accent2
       edgeMaterial.color = accent
-      // Additive glow blows out on a light ground, so ease it back there.
-      edgeMaterial.opacity = dark ? 0.2 : 0.34
-      nodeMaterial.opacity = dark ? 1 : 0.85
+
+      nodeMaterial.opacity = dark ? 1 : 0.95
+      pulseMaterial.opacity = dark ? 1 : 0.95
+      edgeMaterial.opacity = dark ? 0.2 : 0.55
     }
     applyTheme()
 
-    const themeObserver = new MutationObserver(applyTheme)
+    const themeObserver = new MutationObserver(() => {
+      applyTheme()
+      // The reduced-motion path paints a single frame, so without this the
+      // static image would keep the previous theme's colours.
+      if (reduced) renderer.render(scene, camera)
+    })
     themeObserver.observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['class'],
