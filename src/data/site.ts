@@ -89,19 +89,13 @@ export const experience: Role[] = [
       'Enabled CPU and GPU (CUDA) execution and secured client data through input validation and access controls.',
     ],
   },
-  {
-    org: 'PSG Team Aurora',
-    title: 'Mars Rover Project',
-    points: [
-      'Trained a custom arrow-detection model on a self-collected, annotated dataset using YOLOv8, achieving 96% accuracy.',
-      'Integrated YOLOv8, BLIP, and ArUco markers for scene understanding and robotic decision-making, and enhanced a ROS-based dashboard with live camera, depth visualization, and terminal logs.',
-    ],
-  },
 ]
 
 export type Project = {
   title: string
   subtitle: string
+  /** Set for team or competition work, shown as a badge on the card. */
+  org?: string
   points: string[]
   tags: string[]
   /** The resume links these but omits the URLs — fill in to show a Source link. */
@@ -110,6 +104,16 @@ export type Project = {
 }
 
 export const projects: Project[] = [
+  {
+    title: 'Mars Rover',
+    org: 'PSG Team Aurora',
+    subtitle: 'Perception and scene understanding for a competition rover',
+    points: [
+      'Trained a custom arrow-detection model on a self-collected, annotated dataset using YOLOv8, achieving 96% accuracy.',
+      'Integrated YOLOv8, BLIP, and ArUco markers for scene understanding and robotic decision-making, and enhanced a ROS-based dashboard with live camera, depth visualization, and terminal logs.',
+    ],
+    tags: ['YOLOv8', 'BLIP', 'ArUco', 'ROS', 'Computer Vision'],
+  },
   {
     title: 'VigilAI',
     subtitle: 'Agentic RTL verification platform for Verilog design validation',
