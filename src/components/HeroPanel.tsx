@@ -1,7 +1,11 @@
+import { Suspense, lazy } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
-import { AnimatedCounter } from '@/components/AnimatedCounter'
-import { NeuralNet } from '@/components/NeuralNet'
-import { stats } from '@/data/site'
+
+// Three.js is ~40% of the app's JS. Splitting it out keeps it off the
+// critical path — the hero text and buttons paint without waiting for it.
+const ThreeNeuralNet = lazy(() =>
+  import('@/components/ThreeNeuralNet').then((m) => ({ default: m.ThreeNeuralNet })),
+)
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const
 
@@ -25,22 +29,12 @@ export function HeroPanel() {
         </span>
       </div>
 
-      <div className="mt-3">
-        <NeuralNet />
+      {/* Fixed ratio so the lazy chunk cannot shift the layout when it lands. */}
+      <div className="mt-3 aspect-[3/2] w-full">
+        <Suspense fallback={<div className="size-full" />}>
+          <ThreeNeuralNet />
+        </Suspense>
       </div>
-
-      <dl className="mt-4 grid grid-cols-4 gap-2 border-t border-line pt-4">
-        {stats.map((stat) => (
-          <div key={stat.label} className="text-center">
-            <dd className="bg-gradient-to-br from-ink to-ink/60 bg-clip-text text-lg font-semibold text-transparent tabular-nums sm:text-xl">
-              <AnimatedCounter value={stat.value} />
-            </dd>
-            <dt className="mt-0.5 font-mono text-[0.65rem] tracking-wide text-ink-muted uppercase">
-              {stat.label}
-            </dt>
-          </div>
-        ))}
-      </dl>
     </motion.div>
   )
 }

@@ -178,10 +178,3 @@ export const certifications: { name: string; issuer: string }[] = [
   { name: 'Responsive Web Design', issuer: 'freeCodeCamp' },
 ]
 
-/** Hero stat tiles. Derived from the lists above so they can never drift. */
-export const stats = [
-  { value: '8.21', label: 'CGPA' },
-  { value: String(experience.length), label: 'Roles' },
-  { value: String(projects.length), label: 'Projects' },
-  { value: String(competitions.length), label: 'Awards' },
-]
