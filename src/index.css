@@ -152,8 +152,9 @@
 }
 
 @keyframes marquee {
+  /* One group width, set per-instance by Marquee once it has measured. */
   to {
-    transform: translateX(-50%);
+    transform: translateX(var(--marquee-shift, -50%));
   }
 }
 

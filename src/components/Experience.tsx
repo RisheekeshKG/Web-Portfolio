@@ -17,24 +17,26 @@ export function Experience() {
         {/* The timeline fills in as you scroll past it — 1:1 with scroll. */}
         <div
           aria-hidden="true"
-          className="absolute top-2 bottom-2 left-0 w-px bg-line"
+          className="absolute top-2 bottom-2 left-0 w-px -translate-x-1/2 bg-line"
         />
         <motion.div
           aria-hidden="true"
-          style={{ scaleY: scrollYProgress }}
+          // x lives here, not in a class: Motion writes its own inline
+          // transform for scaleY and would overwrite a Tailwind translate.
+          style={{ scaleY: scrollYProgress, x: '-50%' }}
           className="absolute top-2 bottom-2 left-0 w-px origin-top bg-gradient-to-b from-accent to-accent-2"
         />
 
-        <Stagger as="ol" className="space-y-10 pl-6 sm:pl-8" stagger={0.12}>
+        <Stagger as="ol" className="space-y-10" stagger={0.12}>
           {experience.map((role) => (
             <StaggerItem
               as="li"
               key={`${role.org}-${role.title}`}
-              className="group relative"
+              className="group relative pl-6 sm:pl-8"
             >
               <span
                 aria-hidden="true"
-                className="absolute top-2 -left-6 size-2 rounded-full border-2 border-accent bg-canvas transition-transform duration-300 group-hover:scale-150 sm:-left-8"
+                className="absolute top-2 left-0 size-2 -translate-x-1/2 rounded-full border-2 border-accent bg-canvas transition-transform duration-300 group-hover:scale-150"
               />
               <article className="transition-transform duration-300 group-hover:translate-x-1">
                 <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">

@@ -1,9 +1,23 @@
-import type { ReactNode } from 'react'
+import {
+  useLayoutEffect,
+  useRef,
+  useState,
+  type CSSProperties,
+  type ReactNode,
+} from 'react'
 
 /**
- * Infinite horizontal scroller. Renders `items` twice back to back and
- * animates a translateX(-50%) loop, so the seam is invisible as long as both
- * copies are identical widths (they are, since they render the same items).
+ * Infinite horizontal scroller.
+ *
+ * The number of copies is measured rather than fixed: a fixed pair only fills
+ * the screen when one copy is already wider than the viewport, which is false
+ * for short lists on wide monitors and leaves a visible gap mid-loop. We
+ * render enough copies to span the viewport plus one whole group, then shift
+ * by exactly one group so the seam always lands on a repeat.
+ *
+ * Spacing is a right margin on each item (not a flex gap) so a group's width
+ * includes its own trailing space — that keeps track width an exact multiple
+ * of the group width, which is what makes the seam invisible.
  */
 export function Marquee({
   items,
@@ -12,8 +26,31 @@ export function Marquee({
   items: ReactNode[]
   reverse?: boolean
 }) {
+  const viewportRef = useRef<HTMLDivElement>(null)
+  const groupRef = useRef<HTMLDivElement>(null)
+  const [copies, setCopies] = useState(2)
+
+  useLayoutEffect(() => {
+    const viewport = viewportRef.current
+    const group = groupRef.current
+    if (!viewport || !group) return
+
+    const measure = () => {
+      const groupWidth = group.offsetWidth
+      if (!groupWidth) return
+      setCopies(Math.max(2, Math.ceil(viewport.offsetWidth / groupWidth) + 1))
+    }
+
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(viewport)
+    observer.observe(group)
+    return () => observer.disconnect()
+  }, [items])
+
   return (
     <div
+      ref={viewportRef}
       className="group relative overflow-hidden"
       style={{
         maskImage:
@@ -21,13 +58,27 @@ export function Marquee({
       }}
     >
       <div
-        className="marquee-track gap-3 group-hover:[animation-play-state:paused]"
-        style={reverse ? { animationDirection: 'reverse' } : undefined}
+        className="marquee-track group-hover:[animation-play-state:paused]"
+        style={
+          {
+            '--marquee-shift': `-${100 / copies}%`,
+            ...(reverse ? { animationDirection: 'reverse' } : {}),
+          } as CSSProperties
+        }
       >
-        {[...items, ...items].map((item, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <div key={index} className="shrink-0">
-            {item}
+        {Array.from({ length: copies }, (_, copy) => (
+          <div
+            key={copy}
+            ref={copy === 0 ? groupRef : undefined}
+            className="flex shrink-0"
+            // Only the first group is real content; the rest are visual repeats.
+            aria-hidden={copy > 0 ? true : undefined}
+          >
+            {items.map((item, index) => (
+              <div key={index} className="mr-3 shrink-0">
+                {item}
+              </div>
+            ))}
           </div>
         ))}
       </div>
