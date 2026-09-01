@@ -7,9 +7,9 @@ export const site = {
   email: 'risheekeshkg@gmail.com',
   phone: '+91 93847 62478',
   availability: 'Open to new opportunities',
-  // TODO: the resume links to these but does not include the URLs — add your handles.
+  // TODO: LinkedIn and LeetCode still need your real handles.
   links: {
-    github: 'https://github.com/',
+    github: 'https://github.com/RisheekeshKG',
     linkedin: 'https://linkedin.com/in/',
     leetcode: 'https://leetcode.com/',
   },
