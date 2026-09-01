@@ -7,11 +7,10 @@ export const site = {
   email: 'risheekeshkg@gmail.com',
   phone: '+91 93847 62478',
   availability: 'Open to new opportunities',
-  // TODO: LinkedIn and LeetCode still need your real handles.
   links: {
     github: 'https://github.com/RisheekeshKG',
-    linkedin: 'https://linkedin.com/in/',
-    leetcode: 'https://leetcode.com/',
+    linkedin: 'https://www.linkedin.com/in/risheekeshkg/',
+    leetcode: 'https://leetcode.com/u/RisheekeshKG/',
   },
 }
 
