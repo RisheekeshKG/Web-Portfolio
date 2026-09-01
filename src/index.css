@@ -1,0 +1,179 @@
+@import "tailwindcss";
+
+/* Manual theme control: `dark:` follows the .dark class, set before paint in index.html. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Inter Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Semantic palette. Cinematic-dark is the brand default; light is a secondary
+   mode reached only through the toggle (see index.html — default is dark). */
+:root {
+  --canvas: oklch(99% 0.002 260);
+  --surface: oklch(97% 0.004 260);
+  --surface-2: oklch(94% 0.006 260);
+  --ink: oklch(21% 0.03 265);
+  --ink-muted: oklch(50% 0.03 258);
+  --line: oklch(90% 0.008 258);
+  --accent: oklch(52% 0.19 265);
+  --accent-2: oklch(62% 0.2 305);
+  --glow-1: oklch(70% 0.15 265 / 0.16);
+  --glow-2: oklch(70% 0.16 305 / 0.12);
+}
+
+.dark {
+  --canvas: oklch(11% 0.014 265);
+  --surface: oklch(15% 0.017 265);
+  --surface-2: oklch(19% 0.019 264);
+  --ink: oklch(96% 0.006 260);
+  --ink-muted: oklch(66% 0.025 258);
+  --line: oklch(27% 0.02 263);
+  --accent: oklch(74% 0.14 265);
+  --accent-2: oklch(76% 0.15 320);
+  --glow-1: oklch(55% 0.19 265 / 0.4);
+  --glow-2: oklch(55% 0.2 310 / 0.32);
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+}
+
+@layer base {
+  html {
+    scroll-padding-top: 5rem;
+    color-scheme: dark;
+  }
+
+  html:not(.dark) {
+    color-scheme: light;
+  }
+
+  body {
+    /* Fine grain over the whole page; layered above the canvas colour, below
+       content, so it reads as texture rather than noise on top of text. */
+    background-image:
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    background-attachment: fixed;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--accent);
+    color: var(--canvas);
+  }
+}
+
+@utility reveal {
+  @media (prefers-reduced-motion: no-preference) {
+    opacity: 0;
+    transform: translateY(16px);
+    transition:
+      opacity 0.8s var(--ease-out-expo),
+      transform 0.8s var(--ease-out-expo);
+
+    &.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+@utility glass {
+  background: color-mix(in oklab, var(--surface) 70%, transparent);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Cursor-tracked spotlight: --x/--y are set from JS (see useSpotlight). Falls
+   back to a static soft glow when JS has not run yet or motion is reduced. */
+@utility spotlight {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: radial-gradient(
+      480px circle at var(--x, 50%) var(--y, 0%),
+      color-mix(in oklab, var(--accent) 15%, transparent),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Escapes a centered max-width container to run edge to edge. Safe against
+   scrollbar-width overflow because the app root sets overflow-x: clip. */
+@utility full-bleed {
+  position: relative;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+}
+
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes mesh-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(3%, -4%) scale(1.05);
+  }
+  66% {
+    transform: translate(-3%, 3%) scale(0.98);
+  }
+}
+
+.mesh-blob {
+  animation: mesh-drift 22s var(--ease-out-expo) infinite;
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}

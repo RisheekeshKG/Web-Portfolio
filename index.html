@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Risheekesh KG — AI & Software Engineer</title>
+    <meta
+      name="description"
+      content="Risheekesh KG — AI and Data Science undergrad building agentic AI systems, computer-vision pipelines, and full-stack web applications."
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Risheekesh KG — AI & Software Engineer" />
+    <meta
+      property="og:description"
+      content="Risheekesh KG — AI and Data Science undergrad building agentic AI systems, computer-vision pipelines, and full-stack web applications."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="theme-color" content="#0d0e12" />
+
+    <script>
+      // Cinematic dark is the site's default look. It only steps aside for a
+      // visitor who has explicitly chosen light before — never for OS
+      // preference, so the brand stays consistent. Applied pre-paint so
+      // there is no flash of the wrong theme.
+      (function () {
+        try {
+          document.documentElement.classList.toggle(
+            'dark',
+            localStorage.getItem('theme') !== 'light',
+          )
+        } catch (e) {
+          document.documentElement.classList.add('dark')
+        }
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
