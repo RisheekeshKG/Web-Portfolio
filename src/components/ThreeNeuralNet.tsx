@@ -99,13 +99,27 @@ export function ThreeNeuralNet() {
 
     const scene = new Scene()
     const camera = new PerspectiveCamera(42, mount.clientWidth / mount.clientHeight, 0.1, 100)
-    camera.position.set(0, 0, 5.1)
+    camera.position.set(0, 0, 6)
 
     const group = new Group()
     scene.add(group)
 
     const nodes = buildNodes()
     const texture = glowTexture()
+
+    // Pull the camera back far enough that the scene fits whatever aspect the
+    // container happens to be. Rotation is about Y, so the horizontal extent
+    // is the radius in the XZ plane; GLOW_MARGIN covers the sprite halo and
+    // the small X tilt.
+    const GLOW_MARGIN = 0.35
+    const halfXZ =
+      Math.max(...nodes.map((n) => Math.hypot(n.x, n.z))) + GLOW_MARGIN
+    const halfY = Math.max(...nodes.map((n) => Math.abs(n.y))) + GLOW_MARGIN
+
+    function fitCamera(aspect: number) {
+      const half = Math.tan(((camera.fov * Math.PI) / 180) / 2)
+      camera.position.z = Math.max(halfY / half, halfXZ / (half * aspect)) * 1.05
+    }
 
     // Nodes
     const nodeGeometry = new BufferGeometry()
@@ -233,6 +247,9 @@ export function ThreeNeuralNet() {
       renderer.render(scene, camera)
     }
 
+    fitCamera(camera.aspect)
+    camera.updateProjectionMatrix()
+
     // Static single frame when motion is reduced.
     if (reduced) {
       group.rotation.y = 0.6
@@ -275,6 +292,7 @@ export function ThreeNeuralNet() {
       if (!w || !h) return
       renderer.setSize(w, h, false)
       camera.aspect = w / h
+      fitCamera(camera.aspect)
       camera.updateProjectionMatrix()
       if (reduced) renderer.render(scene, camera)
     })

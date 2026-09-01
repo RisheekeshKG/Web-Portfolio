@@ -49,7 +49,7 @@ export function Hero() {
       <MeshGradient />
 
       <div className={CONTAINER}>
-        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-12">
+        <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10">
           <div>
             {site.availability && (
               <Line delay={0.05}>
