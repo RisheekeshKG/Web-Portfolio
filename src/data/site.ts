@@ -20,6 +20,7 @@ export const sections = [
   { id: 'system', label: 'System Project' },
   { id: 'projects', label: 'Projects' },
   { id: 'research', label: 'Research' },
+  { id: 'activity', label: 'Activity' },
   { id: 'achievements', label: 'Awards' },
   { id: 'contact', label: 'Contact' },
 ] as const

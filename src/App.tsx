@@ -1,5 +1,6 @@
 import { About } from '@/components/About'
 import { Achievements } from '@/components/Achievements'
+import { Activity } from '@/components/Activity'
 import { Contact } from '@/components/Contact'
 import { Experience } from '@/components/Experience'
 import { Footer } from '@/components/Footer'
@@ -34,6 +35,7 @@ function App() {
         <SystemProject />
         <Projects />
         <Research />
+        <Activity />
         <Achievements />
         <Contact />
       </main>

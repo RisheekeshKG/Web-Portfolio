@@ -66,6 +66,33 @@ behaviour (drifting, dispersing plumes over a regional background) at the
 resolution and on the colour scale the real maps use. It repaints on theme
 change, and stops entirely when scrolled out of view or when the tab is hidden.
 
+## Activity heatmaps
+
+Neither platform can be called directly from a page: GitHub's contribution API
+needs a token, and LeetCode's GraphQL endpoint answers preflight with `405` and
+sends no CORS headers at all. Both therefore go through public read-only
+proxies, fetched in the browser on mount (`src/hooks/useActivity.ts`):
+
+| source   | proxy                                    |
+| -------- | ---------------------------------------- |
+| GitHub   | `github-contributions-api.jogruber.de`   |
+| LeetCode | `leetcode-api-faisalshohag.vercel.app`   |
+
+These are free third-party services, so either can rate-limit or disappear.
+Each is fetched independently behind an 8s timeout: if one fails, that panel
+degrades to a link to the profile and the rest of the section is unaffected.
+The empty grid renders immediately and fills in when data lands, so the section
+never shifts.
+
+To swap a proxy, change the two URL constants at the top of that hook. Both are
+expected to return a per-day calendar and a headline total; see `fetchGitHub`
+and `fetchLeetCode` for the shapes.
+
+The heatmaps are drawn on the same colour scale as the hero forecast
+(`src/lib/ramp.ts`), so a warm cell means the same thing everywhere. Counts are
+bucketed by quartile rather than scaled linearly, so one twenty-commit day
+cannot flatten every ordinary day to the bottom of the scale.
+
 ## Content
 
 All copy and data live in `src/data/site.ts`. A `Result` (the amber number in
