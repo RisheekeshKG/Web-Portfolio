@@ -40,22 +40,22 @@ export function MobileMenu({
           initial={reducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
           animate={reducedMotion ? { opacity: 1 } : { clipPath: 'inset(0 0 0% 0)' }}
           exit={reducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
-          transition={{ duration: 0.55, ease: easeOutExpo }}
-          className="fixed inset-0 z-50 flex flex-col bg-canvas lg:hidden"
+          transition={{ duration: 0.45, ease: easeOutExpo }}
+          className="fixed inset-0 z-50 flex flex-col bg-ground lg:hidden"
         >
-          <div className="flex items-center justify-between border-b border-line px-6 py-3.5">
-            <span className="font-semibold tracking-tight">{site.name}</span>
+          <div className="flex items-center justify-between border-b border-rule px-6 py-3">
+            <span className="font-mono text-small">{site.name}</span>
             <button
               type="button"
               onClick={onClose}
               aria-label="Close menu"
-              className="grid size-11 place-items-center rounded-md border border-line text-ink-muted transition-colors hover:border-accent hover:text-ink"
+              className="grid size-11 place-items-center border border-rule text-muted transition-colors hover:border-calm hover:text-ink"
             >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.6"
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 aria-hidden="true"
                 className="size-5"
@@ -65,52 +65,31 @@ export function MobileMenu({
             </button>
           </div>
 
-          <nav aria-label="Sections" className="flex-1 overflow-y-auto px-6 py-8">
-            <ul className="space-y-1">
-              {sections.map((section, index) => (
-                <motion.li
-                  key={section.id}
-                  initial={reducedMotion ? false : { opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    duration: 0.5,
-                    delay: reducedMotion ? 0 : 0.15 + index * 0.06,
-                    ease: easeOutExpo,
-                  }}
-                >
+          <nav aria-label="Sections" className="flex-1 overflow-y-auto px-6 py-6">
+            <ul>
+              {sections.map((section) => (
+                <li key={section.id}>
                   <a
                     href={`#${section.id}`}
                     onClick={onClose}
                     aria-current={active === section.id ? 'true' : undefined}
-                    className={`flex items-baseline gap-4 border-b border-line py-4 text-2xl font-medium transition-colors ${
-                      active === section.id
-                        ? 'text-accent'
-                        : 'text-ink hover:text-accent'
+                    className={`block border-b border-rule py-4 text-h3 tracking-[-0.015em] transition-colors ${
+                      active === section.id ? 'text-calm' : 'hover:text-calm'
                     }`}
                   >
-                    <span className="font-mono text-xs text-ink-muted tabular-nums">
-                      0{index + 1}
-                    </span>
                     {section.label}
                   </a>
-                </motion.li>
+                </li>
               ))}
             </ul>
 
-            <motion.a
+            <a
               href={`mailto:${site.email}`}
               onClick={onClose}
-              initial={reducedMotion ? false : { opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.5,
-                delay: reducedMotion ? 0 : 0.15 + sections.length * 0.06,
-                ease: easeOutExpo,
-              }}
-              className="mt-10 block text-sm break-all text-ink-muted transition-colors hover:text-accent"
+              className="mt-8 block font-mono text-small break-all text-muted transition-colors hover:text-calm"
             >
               {site.email}
-            </motion.a>
+            </a>
           </nav>
         </motion.div>
       )}

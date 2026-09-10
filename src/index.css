@@ -4,49 +4,62 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Inter Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Two families, deliberately far apart. The serif is the register the
+     research actually lives in; the mono is what every measured value is set
+     in. Nothing on the page is set in a third face. */
+  --font-serif: "Source Serif 4 Variable", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-sans: var(--font-serif);
+
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Minor third off a 17px body, per Elements of Typographic Style. */
+  --text-micro: 0.75rem;
+  --text-small: 0.875rem;
+  --text-body: 1.0625rem;
+  --text-lead: 1.3125rem;
+  --text-h3: 1.6875rem;
+  --text-h2: 2.125rem;
+  --text-display: clamp(2.75rem, 7vw, 4.75rem);
 }
 
-/* Semantic palette. Cinematic-dark is the brand default; light is a secondary
-   mode reached only through the toggle (see index.html — default is dark). */
+/* Instrument palette. Colour carries meaning here: `signal` (amber) marks a
+   measured value and nothing else, `calm` (teal) marks structure and
+   navigation. Neither is used as decoration. */
 :root {
-  --canvas: oklch(99% 0.002 260);
-  --surface: oklch(97% 0.004 260);
-  --surface-2: oklch(94% 0.006 260);
-  --ink: oklch(21% 0.03 265);
-  --ink-muted: oklch(50% 0.03 258);
-  --line: oklch(90% 0.008 258);
-  --accent: oklch(52% 0.19 265);
-  --accent-2: oklch(62% 0.2 305);
-  --glow-1: oklch(70% 0.15 265 / 0.16);
-  --glow-2: oklch(70% 0.16 305 / 0.12);
+  --ground: #f2f4f2;
+  --panel: #ffffff;
+  --panel-2: #e9edea;
+  --rule: #dce2df;
+  --ink: #0e1719;
+  --muted: #55676a;
+  --signal: #8f5412;
+  --calm: #176b60;
+  --trace: #c9d3ce;
 }
 
 .dark {
-  --canvas: oklch(11% 0.014 265);
-  --surface: oklch(15% 0.017 265);
-  --surface-2: oklch(19% 0.019 264);
-  --ink: oklch(96% 0.006 260);
-  --ink-muted: oklch(66% 0.025 258);
-  --line: oklch(27% 0.02 263);
-  --accent: oklch(74% 0.14 265);
-  --accent-2: oklch(76% 0.15 320);
-  --glow-1: oklch(55% 0.19 265 / 0.4);
-  --glow-2: oklch(55% 0.2 310 / 0.32);
+  --ground: #0c1416;
+  --panel: #121d20;
+  --panel-2: #17262a;
+  --rule: #1e2e31;
+  --ink: #e6edea;
+  --muted: #8fa4a3;
+  --signal: #e0a24a;
+  --calm: #5fb0a4;
+  --trace: #24393d;
 }
 
 @theme inline {
-  --color-canvas: var(--canvas);
-  --color-surface: var(--surface);
-  --color-surface-2: var(--surface-2);
+  --color-ground: var(--ground);
+  --color-panel: var(--panel);
+  --color-panel-2: var(--panel-2);
+  --color-rule: var(--rule);
   --color-ink: var(--ink);
-  --color-ink-muted: var(--ink-muted);
-  --color-line: var(--line);
-  --color-accent: var(--accent);
-  --color-accent-2: var(--accent-2);
+  --color-muted: var(--muted);
+  --color-signal: var(--signal);
+  --color-calm: var(--calm);
+  --color-trace: var(--trace);
 }
 
 @layer base {
@@ -60,11 +73,11 @@
   }
 
   body {
-    /* Fine grain over the whole page; layered above the canvas colour, below
-       content, so it reads as texture rather than noise on top of text. */
-    background-image:
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
-    background-attachment: fixed;
+    font-size: var(--text-body);
+    line-height: 1.65;
+    /* Optical sizing and old-style figures off: this is an instrument, the
+       numerals should line up in columns. */
+    font-variant-numeric: tabular-nums lining-nums;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -74,107 +87,40 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--calm);
     outline-offset: 3px;
-    border-radius: 2px;
+    border-radius: 1px;
   }
 
   ::selection {
-    background: var(--accent);
-    color: var(--canvas);
+    background: var(--signal);
+    color: var(--ground);
   }
 }
 
-@utility reveal {
-  @media (prefers-reduced-motion: no-preference) {
+/* A measured value. Mono, tabular, amber — the only place amber appears. */
+@utility measure {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+  color: var(--signal);
+}
+
+/* The one orchestrated moment: the hero readout resolving out of noise.
+   Everything else on the page moves only in answer to a user action. */
+@keyframes settle {
+  from {
     opacity: 0;
-    transform: translateY(16px);
-    transition:
-      opacity 0.8s var(--ease-out-expo),
-      transform 0.8s var(--ease-out-expo);
-
-    &.is-visible {
-      opacity: 1;
-      transform: none;
-    }
+    transform: translateY(0.4rem);
   }
-}
-
-@utility glass {
-  background: color-mix(in oklab, var(--surface) 70%, transparent);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-}
-
-/* Cursor-tracked spotlight: --x/--y are set from JS (see useSpotlight). Falls
-   back to a static soft glow when JS has not run yet or motion is reduced. */
-@utility spotlight {
-  position: relative;
-  isolation: isolate;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    border-radius: inherit;
-    background: radial-gradient(
-      480px circle at var(--x, 50%) var(--y, 0%),
-      color-mix(in oklab, var(--accent) 15%, transparent),
-      transparent 70%
-    );
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-
-  &:hover::before {
-    opacity: 1;
-  }
-}
-
-/* Escapes a centered max-width container to run edge to edge. Safe against
-   scrollbar-width overflow because the app root sets overflow-x: clip. */
-@utility full-bleed {
-  position: relative;
-  left: 50%;
-  width: 100vw;
-  transform: translateX(-50%);
-}
-
-@utility marquee-track {
-  display: flex;
-  width: max-content;
-  animation: marquee 32s linear infinite;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
-
-@keyframes marquee {
-  /* One group width, set per-instance by Marquee once it has measured. */
   to {
-    transform: translateX(var(--marquee-shift, -50%));
+    opacity: 1;
+    transform: none;
   }
 }
 
-@keyframes mesh-drift {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  33% {
-    transform: translate(3%, -4%) scale(1.05);
-  }
-  66% {
-    transform: translate(-3%, 3%) scale(0.98);
-  }
-}
-
-.mesh-blob {
-  animation: mesh-drift 22s var(--ease-out-expo) infinite;
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
+@utility settle-in {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: settle 0.8s var(--ease-out-expo) both;
   }
 }

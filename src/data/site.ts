@@ -3,7 +3,7 @@ export const site = {
   role: 'AI & Software Engineer',
   location: 'Coimbatore, India',
   tagline:
-    'AI and Data Science undergrad building agentic AI systems, computer-vision pipelines, and full-stack web applications.',
+    'I build systems that turn a noisy signal into a number someone can act on: perception for a Mars rover, face recognition at event scale, and a 16-hour air-quality forecast.',
   email: 'risheekeshkg@gmail.com',
   phone: '+91 93847 62478',
   availability: 'Open to new opportunities',
@@ -25,14 +25,6 @@ export const sections = [
 ] as const
 
 export const sectionIds = sections.map((section) => section.id)
-
-/**
- * Display number for a section, taken from its position in `sections` so
- * inserting or reordering one can never leave a stale hardcoded index.
- */
-export function sectionIndex(id: string) {
-  return String(sections.findIndex((section) => section.id === id) + 1).padStart(2, '0')
-}
 
 export const about = [
   'I am an AI and Data Science undergraduate at PSG iTech, concurrently pursuing a BS in Data Science at IIT Madras. Most of my work sits where machine learning meets a real interface — agent workflows, vision systems, and the applications that make them usable.',
@@ -71,12 +63,23 @@ export const skills: { group: string; items: string[] }[] = [
   { group: 'Tools', items: ['Git', 'GitHub', 'Azure', 'Vite'] },
 ]
 
+/**
+ * The headline number a piece of work produced. It hangs in the values gutter
+ * beside the prose, so only include one where a real measurement exists —
+ * an empty gutter is honest, an invented figure is not.
+ */
+export type Result = {
+  value: string
+  label: string
+}
+
 export type Role = {
   org: string
   title: string
   /** Omitted for ongoing team work with no fixed term. */
   period?: string
   points: string[]
+  result?: Result
 }
 
 export const experience: Role[] = [
@@ -84,6 +87,7 @@ export const experience: Role[] = [
     org: 'Payoda Technology Inc.',
     title: 'Requirement Gathering Agent Workflow',
     period: 'Jun 2026 — Jul 2026',
+    result: { value: '60%', label: 'less manual documentation' },
     points: [
       'Built an enterprise requirements-management platform using AI to generate backlog specifications, epics, and user stories automatically, reducing manual documentation effort by 60%.',
       'Created an executive dashboard with 4-level tracking across projects, backlogs, epics, and stories, monitoring budgets, completion rates, and team workload while integrating Jira, Slack, and GitHub for unified visibility.',
@@ -93,6 +97,7 @@ export const experience: Role[] = [
     org: 'Rhodnet AI Private Limited',
     title: 'Face Recognition & Clustering',
     period: 'Aug 2025 — Nov 2025',
+    result: { value: '37%', label: 'faster over 2,000+ images' },
     points: [
       'Built a DeepFace recognition system for 2000+ event images, optimizing preprocessing to reduce processing time by 37%.',
       'Enabled CPU and GPU (CUDA) execution and secured client data through input validation and access controls.',
@@ -105,6 +110,7 @@ export const systemProjects: Role[] = [
   {
     org: 'PSG Team Aurora',
     title: 'Mars Rover Project',
+    result: { value: '96%', label: 'arrow-detection accuracy' },
     points: [
       'Trained a custom arrow-detection model on a self-collected, annotated dataset using YOLOv8, achieving 96% accuracy.',
       'Integrated YOLOv8, BLIP, and ArUco markers for scene understanding and robotic decision-making, and enhanced a ROS-based dashboard with live camera, depth visualization, and terminal logs.',
@@ -190,4 +196,3 @@ export const certifications: { name: string; issuer: string }[] = [
   { name: 'Web Development Course', issuer: 'Udemy' },
   { name: 'Responsive Web Design', issuer: 'freeCodeCamp' },
 ]
-

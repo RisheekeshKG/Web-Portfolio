@@ -1,136 +1,75 @@
-import { motion, useReducedMotion } from 'motion/react'
-import { MagneticButton } from '@/components/MagneticButton'
-import { HeroPanel } from '@/components/HeroPanel'
-import { MeshGradient } from '@/components/MeshGradient'
-import { AnimatedText } from '@/components/motion/AnimatedText'
-import { useSpotlight } from '@/hooks/useSpotlight'
+import { ForecastReadout } from '@/components/ForecastReadout'
 import { site } from '@/data/site'
 import { CONTAINER } from '@/lib/layout'
 
-const easeOutExpo = [0.16, 1, 0.3, 1] as const
-
-function Line({
-  children,
-  delay,
-  className,
-}: {
-  children: React.ReactNode
-  delay: number
-  className?: string
-}) {
-  const reducedMotion = useReducedMotion()
-  return (
-    <div className="overflow-hidden">
-      <motion.div
-        initial={reducedMotion ? false : { y: '110%' }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.9, delay, ease: easeOutExpo }}
-        className={className}
-      >
-        {children}
-      </motion.div>
-    </div>
-  )
-}
-
+/**
+ * The page's single orchestrated moment: the copy settles in on a short
+ * stagger while the readout resolves out of noise. Nothing below the fold
+ * animates on its own.
+ */
 export function Hero() {
-  const { ref, onPointerMove } = useSpotlight<HTMLElement>()
-  const reducedMotion = useReducedMotion()
-
   return (
-    <section
-      id="top"
-      ref={ref}
-      onPointerMove={onPointerMove}
-      className="spotlight relative w-full overflow-hidden py-24 sm:py-32"
-    >
-      {/* Full width, so the mesh/grid glow reaches the true viewport edges;
-          only the text content below is constrained to CONTAINER. */}
-      <MeshGradient />
-
-      <div className={CONTAINER}>
-        <div className="grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-10">
+    <section id="top" className="w-full">
+      <div className={`${CONTAINER} py-14 sm:py-20 lg:py-24`}>
+        <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16">
           <div>
-            {site.availability && (
-              <Line delay={0.05}>
-                <span className="mb-6 inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs text-ink-muted">
-                  <span className="relative flex size-1.5">
-                    {!reducedMotion && (
-                      <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60" />
-                    )}
-                    <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
-                  </span>
-                  {site.availability}
-                </span>
-              </Line>
-            )}
+            <p
+              className="settle-in flex items-center gap-2.5 font-mono text-micro text-muted"
+              style={{ animationDelay: '0ms' }}
+            >
+              <span aria-hidden="true" className="size-1.5 bg-calm" />
+              {site.availability}
+            </p>
 
-            <h1>
-              <AnimatedText
-                onMount
-                text={site.name}
-                className="block bg-gradient-to-br from-ink to-ink/70 bg-clip-text text-5xl font-bold tracking-tight text-balance text-transparent sm:text-7xl"
-              />
+            <h1
+              className="settle-in mt-6 text-display leading-[0.94] font-semibold tracking-[-0.025em]"
+              style={{ animationDelay: '60ms' }}
+            >
+              {site.name}
             </h1>
 
-            <Line delay={0.22} className="mt-4">
-              <p className="font-mono text-sm text-accent sm:text-base">
-                {site.role} · {site.location}
-              </p>
-            </Line>
-
-            <Line delay={0.3} className="mt-6">
-              <p className="max-w-xl text-lg leading-relaxed text-pretty text-ink-muted">
-                {site.tagline}
-              </p>
-            </Line>
-
-            <motion.div
-              initial={reducedMotion ? false : { opacity: 0, y: 16 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.45, ease: easeOutExpo }}
-              className="mt-9 flex flex-wrap gap-3"
+            <p
+              className="settle-in mt-5 flex flex-wrap gap-x-8 gap-y-1 font-mono text-micro text-muted"
+              style={{ animationDelay: '120ms' }}
             >
-              <MagneticButton
-                as="a"
+              <span>{site.role}</span>
+              <span>{site.location}</span>
+            </p>
+
+            <p
+              className="settle-in mt-8 max-w-[54ch] text-lead leading-[1.55] text-pretty"
+              style={{ animationDelay: '180ms' }}
+            >
+              {site.tagline}
+            </p>
+
+            <div
+              className="settle-in mt-9 flex flex-wrap items-center gap-x-8 gap-y-4"
+              style={{ animationDelay: '240ms' }}
+            >
+              <a
                 href="#projects"
-                className="inline-block rounded-md bg-ink px-5 py-2.5 text-sm font-medium text-canvas transition-opacity hover:opacity-85"
+                className="bg-ink px-5 py-2.5 font-mono text-small text-ground transition-colors hover:bg-calm"
               >
-                View my work
-              </MagneticButton>
-              <MagneticButton
-                as="a"
+                See the work
+              </a>
+              <a
                 href={`mailto:${site.email}`}
-                className="inline-block rounded-md border border-line px-5 py-2.5 text-sm font-medium transition-colors hover:border-accent hover:text-accent"
+                className="font-mono text-small text-muted underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-calm"
               >
-                Get in touch
-              </MagneticButton>
-            </motion.div>
+                {site.email}
+              </a>
+            </div>
           </div>
 
-          <HeroPanel />
+          <div className="settle-in" style={{ animationDelay: '300ms' }}>
+            <ForecastReadout />
+            <p className="mt-3 max-w-[42ch] font-mono text-micro leading-relaxed text-muted">
+              Forecast PM2.5 field from my ConvLSTM2D model, running out to its
+              16-hour horizon.
+            </p>
+          </div>
         </div>
-
-        <motion.div
-          initial={reducedMotion ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1 }}
-          className="mt-16 flex items-center gap-2 text-xs text-ink-muted"
-          aria-hidden="true"
-        >
-          <span className="flex h-8 w-5 items-start justify-center rounded-full border border-line p-1">
-            <motion.span
-              animate={reducedMotion ? undefined : { y: [0, 5, 0] }}
-              transition={{
-                duration: 1.8,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }}
-              className="size-1 rounded-full bg-accent"
-            />
-          </span>
-          Scroll
-        </motion.div>
       </div>
     </section>
   )

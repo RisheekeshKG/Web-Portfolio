@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { motion } from 'motion/react'
 import { MobileMenu } from '@/components/MobileMenu'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { useActiveSection } from '@/hooks/useActiveSection'
@@ -12,37 +11,34 @@ export function Header() {
 
   return (
     <>
-      <header className="glass sticky top-0 z-40 border-b border-line">
-        <div className={`${CONTAINER} flex items-center justify-between gap-4 py-3.5`}>
+      <header className="sticky top-0 z-40 border-b border-rule bg-ground/85 backdrop-blur-md">
+        <div
+          className={`${CONTAINER} flex items-center justify-between gap-6 py-3`}
+        >
           <a
             href="#top"
-            className="shrink-0 font-semibold tracking-tight transition-colors hover:text-accent"
+            className="shrink-0 font-mono text-small tracking-tight transition-colors hover:text-calm"
           >
             {site.name}
           </a>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-2">
             <nav aria-label="Sections" className="hidden lg:block">
-              <ul className="flex items-center gap-1">
+              <ul className="flex items-center gap-6">
                 {sections.map((section) => {
                   const isActive = active === section.id
                   return (
-                    <li key={section.id} className="relative">
+                    <li key={section.id}>
                       <a
                         href={`#${section.id}`}
                         aria-current={isActive ? 'true' : undefined}
-                        className={`relative block rounded-md px-2.5 py-1.5 text-sm transition-colors ${
-                          isActive ? 'text-ink' : 'text-ink-muted hover:text-ink'
+                        className={`block border-b py-0.5 font-mono text-micro transition-colors ${
+                          isActive
+                            ? 'border-calm text-ink'
+                            : 'border-transparent text-muted hover:text-ink'
                         }`}
                       >
                         {section.label}
-                        {isActive && (
-                          <motion.span
-                            layoutId="nav-active"
-                            className="absolute inset-x-2.5 -bottom-0.5 h-px bg-accent"
-                            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-                          />
-                        )}
                       </a>
                     </li>
                   )
@@ -58,18 +54,18 @@ export function Header() {
               aria-label="Open menu"
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className="grid size-10 place-items-center rounded-md border border-line text-ink-muted transition-colors hover:border-accent hover:text-ink sm:size-9 lg:hidden"
+              className="grid size-10 place-items-center border border-rule text-muted transition-colors hover:border-calm hover:text-ink lg:hidden"
             >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                strokeWidth="1.6"
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 aria-hidden="true"
                 className="size-4"
               >
-                <path d="M4 7h16M4 12h16M4 17h16" />
+                <path d="M4 8h16M4 16h16" />
               </svg>
             </button>
           </div>
