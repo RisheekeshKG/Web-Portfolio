@@ -11,7 +11,7 @@ export function Header() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-rule bg-ground/85 backdrop-blur-md">
+      <header className="sticky top-0 z-40 border-b border-rule bg-panel/85 backdrop-blur-md">
         <div
           className={`${CONTAINER} flex items-center justify-between gap-6 py-3`}
         >
@@ -22,9 +22,12 @@ export function Header() {
             {site.name}
           </a>
 
-          <div className="flex items-center gap-2">
+          {/* Wider than the nav's own 24px item rhythm from `lg` up, so the
+              toggle reads as its own group rather than a final nav item. Stays
+              tight below that, where it pairs with the menu button. */}
+          <div className="flex items-center gap-2 lg:gap-8">
             <nav aria-label="Sections" className="hidden lg:block">
-              <ul className="flex items-center gap-6">
+              <ul className="flex items-center gap-1">
                 {sections.map((section) => {
                   const isActive = active === section.id
                   return (
@@ -32,10 +35,10 @@ export function Header() {
                       <a
                         href={`#${section.id}`}
                         aria-current={isActive ? 'true' : undefined}
-                        className={`block border-b py-0.5 font-mono text-micro transition-colors ${
+                        className={`block rounded-sm px-2 py-1 font-mono text-micro transition-colors ${
                           isActive
-                            ? 'border-calm text-ink'
-                            : 'border-transparent text-muted hover:text-ink'
+                            ? 'bg-panel-2 text-calm'
+                            : 'text-muted hover:bg-panel-2 hover:text-ink'
                         }`}
                       >
                         {section.label}
@@ -54,7 +57,7 @@ export function Header() {
               aria-label="Open menu"
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className="grid size-10 place-items-center border border-rule text-muted transition-colors hover:border-calm hover:text-ink lg:hidden"
+              className="grid size-9 place-items-center rounded-sm border border-rule text-muted transition-colors hover:border-calm hover:bg-panel-2 hover:text-ink lg:hidden"
             >
               <svg
                 viewBox="0 0 24 24"

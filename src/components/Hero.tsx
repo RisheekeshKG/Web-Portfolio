@@ -10,14 +10,14 @@ import { CONTAINER } from '@/lib/layout'
 export function Hero() {
   return (
     <section id="top" className="w-full">
-      <div className={`${CONTAINER} py-14 sm:py-20 lg:py-24`}>
+      <div className={`${CONTAINER} py-12 sm:py-16 lg:py-20`}>
         <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-16">
           <div>
             <p
               className="settle-in flex items-center gap-2.5 font-mono text-micro text-muted"
               style={{ animationDelay: '0ms' }}
             >
-              <span aria-hidden="true" className="size-1.5 bg-calm" />
+              <span aria-hidden="true" className="size-1.5 rounded-full bg-calm" />
               {site.availability}
             </p>
 
@@ -49,7 +49,7 @@ export function Hero() {
             >
               <a
                 href="#projects"
-                className="bg-ink px-5 py-2.5 font-mono text-small text-ground transition-colors hover:bg-calm"
+                className="rounded-sm bg-calm px-4 py-2 font-mono text-small font-medium text-ground transition-colors hover:bg-signal"
               >
                 See the work
               </a>

@@ -23,7 +23,7 @@ export function Contact() {
         {site.email}
       </a>
 
-      <dl className="mt-14 grid gap-x-10 gap-y-6 border-t border-rule pt-7 sm:grid-cols-3">
+      <dl className="mt-10 grid gap-x-10 gap-y-6 border-t border-rule pt-6 sm:grid-cols-3">
         <div>
           <dt className="font-mono text-micro text-muted">Phone</dt>
           <dd className="mt-1.5">

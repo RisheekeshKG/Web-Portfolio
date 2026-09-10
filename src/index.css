@@ -4,50 +4,55 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  /* Two families, deliberately far apart. The serif is the register the
-     research actually lives in; the mono is what every measured value is set
-     in. Nothing on the page is set in a third face. */
-  --font-serif: "Source Serif 4 Variable", ui-serif, Georgia, serif;
+  /* Two families, as the design system specifies. Geist is the neutral Swiss
+     face the whole interface is set in; JetBrains Mono carries metadata,
+     labels and every measured value. Nothing is set in a third face. */
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-sans: var(--font-serif);
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Minor third off a 17px body, per Elements of Typographic Style. */
-  --text-micro: 0.75rem;
-  --text-small: 0.875rem;
-  --text-body: 1.0625rem;
-  --text-lead: 1.3125rem;
-  --text-h3: 1.6875rem;
-  --text-h2: 2.125rem;
-  --text-display: clamp(2.75rem, 7vw, 4.75rem);
+  /* Desktop-workspace density: a 15px body (body-lg) with tight tracking,
+     stepping up in small increments rather than the wide editorial jumps a
+     serif page wants. Only the display breaks the rhythm, because a hero
+     still needs one moment of scale. */
+  --text-micro: 0.6875rem;
+  --text-small: 0.8125rem;
+  --text-body: 0.9375rem;
+  --text-lead: 1.125rem;
+  --text-h3: 1.375rem;
+  --text-h2: 1.75rem;
+  --text-display: clamp(2.5rem, 6vw, 4rem);
 }
 
-/* Instrument palette. Colour carries meaning here: `signal` (amber) marks a
-   measured value and nothing else, `calm` (teal) marks structure and
-   navigation. Neither is used as decoration. */
+/* Warm minimalist workspace. Surfaces are espresso rather than blue-black,
+   layered by tone instead of by shadow. Colour still carries meaning:
+   `signal` (amber) marks a measured value and nothing else, `calm`
+   (terracotta) marks structure, navigation and active state. */
 :root {
-  --ground: #f2f4f2;
+  --ground: #faf8f4;
   --panel: #ffffff;
-  --panel-2: #e9edea;
-  --rule: #dce2df;
-  --ink: #0e1719;
-  --muted: #55676a;
-  --signal: #8f5412;
-  --calm: #176b60;
-  --trace: #c9d3ce;
+  --panel-2: #f3efe8;
+  --rule: #e2dcd2;
+  --ink: #1f1d1b;
+  --muted: #6e6b66;
+  --signal: #9a5a18;
+  --calm: #b4512f;
+  --trace: #ece7de;
+  --elevate: 0 4px 16px -2px rgb(31 29 27 / 0.08), 0 0 0 1px var(--rule);
 }
 
 .dark {
-  --ground: #0c1416;
-  --panel: #121d20;
-  --panel-2: #17262a;
-  --rule: #1e2e31;
-  --ink: #e6edea;
-  --muted: #8fa4a3;
-  --signal: #e0a24a;
-  --calm: #5fb0a4;
-  --trace: #24393d;
+  --ground: #141517;
+  --panel: #1a1b1e;
+  --panel-2: #1e1f23;
+  --rule: #2b2c31;
+  --ink: #f5f2eb;
+  --muted: #9b9a97;
+  --signal: #e28743;
+  --calm: #e07a5f;
+  --trace: #24252a;
+  --elevate: 0 4px 16px -2px rgb(0 0 0 / 0.5), 0 0 0 1px var(--rule);
 }
 
 @theme inline {
@@ -60,6 +65,7 @@
   --color-signal: var(--signal);
   --color-calm: var(--calm);
   --color-trace: var(--trace);
+  --shadow-elevate: var(--elevate);
 }
 
 @layer base {
@@ -74,7 +80,8 @@
 
   body {
     font-size: var(--text-body);
-    line-height: 1.65;
+    line-height: 1.6;
+    letter-spacing: -0.005em;
     /* Optical sizing and old-style figures off: this is an instrument, the
        numerals should line up in columns. */
     font-variant-numeric: tabular-nums lining-nums;
@@ -86,14 +93,15 @@
     }
   }
 
+  /* The system's focus treatment: a crisp terracotta ring, no glow. */
   :focus-visible {
     outline: 2px solid var(--calm);
-    outline-offset: 3px;
-    border-radius: 1px;
+    outline-offset: 2px;
+    border-radius: 2px;
   }
 
   ::selection {
-    background: var(--signal);
+    background: var(--calm);
     color: var(--ground);
   }
 }
@@ -104,6 +112,24 @@
   font-variant-numeric: tabular-nums;
   letter-spacing: -0.01em;
   color: var(--signal);
+}
+
+/* A property chip, in the workspace's mono-badge register: 10px, uppercase,
+   positively tracked, sitting on a recessed surface behind a hairline. */
+@utility chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--rule);
+  border-radius: 9999px;
+  background: var(--panel-2);
+  padding: 0.125rem 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  line-height: 1rem;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 /* The one orchestrated moment: the hero readout resolving out of noise.

@@ -8,7 +8,7 @@ export function Achievements() {
       title="Awards"
       meta={`${competitions.length} placements`}
     >
-      <div className="grid gap-14 lg:grid-cols-2 lg:gap-x-16">
+      <div className="grid gap-10 lg:grid-cols-2 lg:gap-x-16">
         <div>
           <h3 className="text-h3 leading-tight tracking-[-0.015em]">
             Competitions
@@ -17,7 +17,7 @@ export function Achievements() {
             {competitions.map((item) => (
               <li
                 key={`${item.title}-${item.event}`}
-                className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-6 border-t border-rule py-4"
+                className="-mx-2 grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-6 rounded-sm border-t border-rule px-2 py-4 transition-colors hover:bg-panel-2"
               >
                 <div>
                   <p className="text-pretty">{item.event}</p>
@@ -39,7 +39,7 @@ export function Achievements() {
             {certifications.map((item) => (
               <li
                 key={item.name}
-                className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-6 border-t border-rule py-4"
+                className="-mx-2 grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-6 rounded-sm border-t border-rule px-2 py-4 transition-colors hover:bg-panel-2"
               >
                 <p className="text-pretty">{item.name}</p>
                 <span className="font-mono text-micro text-muted">

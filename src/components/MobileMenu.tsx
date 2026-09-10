@@ -41,7 +41,7 @@ export function MobileMenu({
           animate={reducedMotion ? { opacity: 1 } : { clipPath: 'inset(0 0 0% 0)' }}
           exit={reducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
           transition={{ duration: 0.45, ease: easeOutExpo }}
-          className="fixed inset-0 z-50 flex flex-col bg-ground lg:hidden"
+          className="fixed inset-0 z-50 flex flex-col bg-panel lg:hidden"
         >
           <div className="flex items-center justify-between border-b border-rule px-6 py-3">
             <span className="font-mono text-small">{site.name}</span>
@@ -49,7 +49,7 @@ export function MobileMenu({
               type="button"
               onClick={onClose}
               aria-label="Close menu"
-              className="grid size-11 place-items-center border border-rule text-muted transition-colors hover:border-calm hover:text-ink"
+              className="grid size-10 place-items-center rounded-sm border border-rule text-muted transition-colors hover:border-calm hover:bg-panel-2 hover:text-ink"
             >
               <svg
                 viewBox="0 0 24 24"

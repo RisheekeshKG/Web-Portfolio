@@ -11,7 +11,7 @@ export function ThemeToggle() {
       aria-pressed={isDark}
       aria-label={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
       title={isDark ? 'Switch to light theme' : 'Switch to dark theme'}
-      className="grid size-10 shrink-0 place-items-center border border-rule text-muted transition-colors hover:border-calm hover:text-ink"
+      className="grid size-9 shrink-0 place-items-center rounded-sm border border-rule text-muted transition-colors hover:border-calm hover:bg-panel-2 hover:text-ink"
     >
       <svg
         viewBox="0 0 24 24"

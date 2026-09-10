@@ -17,7 +17,7 @@ function SourceLink({ href, label }: { href: string; label: string }) {
 
 function ProjectEntry({ project }: { project: Project }) {
   return (
-    <li className={`${SHEET} border-t border-rule pt-7`}>
+    <li className={`${SHEET} border-t border-rule pt-6`}>
       <div>
         <h3 className="text-h3 leading-tight tracking-[-0.015em]">{project.title}</h3>
         <p className="mt-1 max-w-[60ch] font-mono text-small text-pretty text-calm">
@@ -34,10 +34,11 @@ function ProjectEntry({ project }: { project: Project }) {
       </div>
 
       {/* No invented metrics here — the gutter carries the stack instead,
-          which is the honest fact these projects have. */}
-      <ul className={`${GUTTER} flex-wrap gap-y-1 md:space-y-1`}>
+          which is the honest fact these projects have. Set as property chips:
+          a tag is metadata, not a measurement, so it never takes amber. */}
+      <ul className={`${GUTTER} flex flex-wrap gap-1.5 md:flex md:flex-wrap md:justify-end`}>
         {project.tags.map((tag) => (
-          <li key={tag} className="font-mono text-micro text-muted">
+          <li key={tag} className="chip">
             {tag}
           </li>
         ))}
@@ -53,7 +54,7 @@ export function Projects() {
       title="Projects"
       meta={`${projects.length} selected`}
     >
-      <ol className="space-y-10">
+      <ol className="space-y-8">
         {projects.map((project) => (
           <ProjectEntry key={project.title} project={project} />
         ))}

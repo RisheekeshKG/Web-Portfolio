@@ -126,6 +126,7 @@ export function ActivityHeatmap({
               y={y}
               width={CELL}
               height={CELL}
+              rx={2}
               fill={count ? sample(scale, level(count)) : 'var(--trace)'}
             >
               {count > 0 && (
@@ -148,11 +149,11 @@ export function HeatmapLegend() {
     <p className="mt-9 flex items-center gap-2 font-mono text-micro text-muted">
       <span>less</span>
       <span aria-hidden="true" className="flex gap-[3px]">
-        <span className="size-2.5" style={{ background: 'var(--trace)' }} />
+        <span className="size-2.5 rounded-xs" style={{ background: 'var(--trace)' }} />
         {BUCKETS.map((bucket) => (
           <span
             key={bucket}
-            className="size-2.5"
+            className="size-2.5 rounded-xs"
             style={{ background: sample(scale, bucket) }}
           />
         ))}

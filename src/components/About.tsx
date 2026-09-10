@@ -13,7 +13,7 @@ export function About() {
         ))}
       </div>
 
-      <ul className="mt-14 space-y-6">
+      <ul className="mt-10 space-y-5">
         {education.map((entry) => (
           <li key={entry.degree} className={`${SHEET} border-t border-rule pt-6`}>
             <div>
@@ -36,11 +36,11 @@ export function About() {
           and a scrolling list throws them away. Read as a spec table — term on
           the left, values to its right — rather than as the values gutter,
           because a category is a label, not a measurement. */}
-      <dl className="mt-14 space-y-0">
+      <dl className="mt-10 space-y-0">
         {skills.map((group) => (
           <div
             key={group.group}
-            className="grid gap-x-10 gap-y-2 border-t border-rule py-5 md:grid-cols-[10rem_minmax(0,1fr)]"
+            className="-mx-2 grid gap-x-10 gap-y-2 rounded-sm border-t border-rule px-2 py-5 transition-colors hover:bg-panel-2 md:grid-cols-[10rem_minmax(0,1fr)]"
           >
             <dt className="font-mono text-micro text-muted">{group.group}</dt>
             <dd className="flex flex-wrap gap-x-6 gap-y-2 font-mono text-small">

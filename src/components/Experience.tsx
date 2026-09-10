@@ -4,7 +4,7 @@ import { GUTTER, SHEET } from '@/lib/layout'
 
 export function Entry({ role }: { role: Role }) {
   return (
-    <li className={`${SHEET} border-t border-rule pt-7`}>
+    <li className={`${SHEET} border-t border-rule pt-6`}>
       <div>
         <h3 className="text-h3 leading-tight tracking-[-0.015em]">{role.org}</h3>
         <p className="mt-1 font-mono text-small text-calm">{role.title}</p>
@@ -24,7 +24,7 @@ export function Entry({ role }: { role: Role }) {
 export function Experience() {
   return (
     <Section id="experience" title="Experience" meta="2 internships">
-      <ol className="space-y-10">
+      <ol className="space-y-8">
         {experience.map((role) => (
           <Entry key={`${role.org}-${role.title}`} role={role} />
         ))}

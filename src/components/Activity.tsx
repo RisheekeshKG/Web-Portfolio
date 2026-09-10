@@ -37,7 +37,7 @@ function Platform({
   window,
 }: PlatformProps) {
   return (
-    <li className={`${SHEET} border-t border-rule pt-7`}>
+    <li className={`${SHEET} border-t border-rule pt-6`}>
       <div className="min-w-0">
         <h3 className="text-h3 leading-tight tracking-[-0.015em]">
           <a
@@ -103,7 +103,7 @@ export function Activity() {
 
   return (
     <Section id="activity" title="Activity" meta={window}>
-      <ul className="space-y-12">
+      <ul className="space-y-10">
         <Platform
           name="LeetCode"
           href={site.links.leetcode}

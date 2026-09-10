@@ -1,29 +1,29 @@
 /**
  * The site's one concentration scale, shared by every figure so a warm cell
- * means the same thing wherever it appears: cool at the low end, through the
- * palette's teal, into amber and ember at the top.
+ * means the same thing wherever it appears: the workspace's own surface tiers
+ * at the low end, warming through terracotta into amber at the top.
  */
 
 export type Stop = [number, [number, number, number]]
 
 export const RAMP_DARK: Stop[] = [
-  [0.0, [11, 26, 29]],
-  [0.2, [18, 67, 63]],
-  [0.4, [31, 122, 110]],
-  [0.6, [95, 176, 164]],
-  [0.75, [224, 162, 74]],
-  [0.9, [209, 102, 47]],
-  [1.0, [163, 52, 31]],
+  [0.0, [20, 21, 23]],
+  [0.2, [43, 44, 49]],
+  [0.4, [90, 70, 64]],
+  [0.6, [176, 110, 85]],
+  [0.75, [224, 122, 95]],
+  [0.9, [226, 135, 67]],
+  [1.0, [240, 184, 117]],
 ]
 
 export const RAMP_LIGHT: Stop[] = [
-  [0.0, [238, 242, 239]],
-  [0.2, [188, 214, 207]],
-  [0.4, [106, 167, 154]],
-  [0.6, [47, 130, 114]],
-  [0.75, [201, 138, 42]],
-  [0.9, [180, 85, 31]],
-  [1.0, [143, 47, 24]],
+  [0.0, [236, 230, 220]],
+  [0.2, [224, 205, 186]],
+  [0.4, [214, 180, 158]],
+  [0.6, [198, 133, 102]],
+  [0.75, [180, 81, 47]],
+  [0.9, [154, 90, 24]],
+  [1.0, [122, 45, 28]],
 ]
 
 export function ramp(isDark: boolean) {

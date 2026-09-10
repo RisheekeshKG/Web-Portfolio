@@ -17,7 +17,7 @@ export function Section({ id, title, meta, children }: SectionProps) {
     <section
       id={id}
       aria-labelledby={`${id}-heading`}
-      className="w-full border-t border-rule py-16 sm:py-24"
+      className="w-full border-t border-rule py-12 sm:py-16"
     >
       <div className={CONTAINER}>
         <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-1">
@@ -30,7 +30,7 @@ export function Section({ id, title, meta, children }: SectionProps) {
           {meta && <span className="font-mono text-micro text-muted">{meta}</span>}
         </div>
 
-        <div className="mt-10">{children}</div>
+        <div className="mt-8">{children}</div>
       </div>
     </section>
   )

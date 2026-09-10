@@ -193,7 +193,7 @@ export function ForecastReadout() {
   const correlation = research.metrics.find((m) => m.label === 'Pearson r')?.value
 
   return (
-    <figure className="settle-in m-0 border border-rule bg-panel">
+    <figure className="settle-in m-0 overflow-hidden rounded-md border border-rule bg-panel-2 shadow-elevate">
       <figcaption className="flex items-baseline justify-between gap-3 border-b border-rule px-4 py-2.5">
         <span className="font-mono text-micro text-muted">PM2.5 forecast</span>
         <span className="font-mono text-micro text-muted">
@@ -204,7 +204,7 @@ export function ForecastReadout() {
       <canvas
         ref={canvasRef}
         role="img"
-        aria-label={`Animated map of forecast PM2.5 concentration advancing across a ${HORIZON}-hour horizon, on a cool-to-warm concentration scale.`}
+        aria-label={`Animated map of forecast PM2.5 concentration advancing across a ${HORIZON}-hour horizon, on a low-to-high concentration scale.`}
         className="block aspect-[17/11] w-full"
       />
 
