@@ -135,9 +135,29 @@ export const systemProjects: Role[] = [
   },
 ]
 
+/** Card marks. Both sets are closed so the grid stays one coherent set. */
+export type ProjectIcon =
+  | 'waveform'
+  | 'board'
+  | 'robot'
+  | 'chart'
+  | 'chat'
+  | 'pen'
+  | 'face'
+
+export type ProjectAccent =
+  | 'terracotta'
+  | 'amber'
+  | 'sage'
+  | 'periwinkle'
+  | 'teal'
+  | 'slate'
+
 export type Project = {
   title: string
   subtitle: string
+  icon?: ProjectIcon
+  accent?: ProjectAccent
   points: string[]
   tags: string[]
   /** The resume links these but omits the URLs — fill in to show a Source link. */
@@ -148,6 +168,8 @@ export type Project = {
 export const projects: Project[] = [
   {
     title: 'VigilAI',
+    icon: 'waveform',
+    accent: 'teal',
     subtitle: 'Agentic RTL verification platform for Verilog design validation',
     points: [
       'Built a React and FastAPI studio that syntax-checks Verilog, picks its own simulator — Icarus for digital, Ngspice for Verilog-AMS — and returns a waveform image, generating a minimal testbench when a design file ships without one.',
@@ -158,6 +180,8 @@ export const projects: Project[] = [
   },
   {
     title: 'Lyf-O',
+    icon: 'board',
+    accent: 'sage',
     subtitle: 'Productivity application with agent support',
     points: [
       'Built a cross-platform Electron and FastAPI desktop app — Gmail inbox, Kanban work tasks, habits and journals — where the React UI reads and writes its own JSON files over Electron IPC.',
@@ -168,6 +192,8 @@ export const projects: Project[] = [
   },
   {
     title: 'The Atlas Protocol',
+    icon: 'robot',
+    accent: 'terracotta',
     subtitle: 'Educational AI robotics game',
     points: [
       'Built a guided, non-addictive educational game that teaches young students the purpose and functionality of robot components through interactive gameplay.',
@@ -177,6 +203,8 @@ export const projects: Project[] = [
   },
   {
     title: 'DeFi Credit Scoring',
+    icon: 'chart',
+    accent: 'amber',
     subtitle: 'Wallet credit scores from raw Aave V2 transaction history',
     points: [
       'Turned 100K+ nested Aave V2 transaction records into wallet-level features — repayment, liquidations, deposit-to-borrow ratio, and activity span — scoring 3,497 wallets from 0 to 1000.',
@@ -187,6 +215,8 @@ export const projects: Project[] = [
   },
   {
     title: 'Ei-Gen',
+    icon: 'chat',
+    accent: 'periwinkle',
     subtitle: 'AI Discord bot for image, text, and speech generation',
     points: [
       'Built a Discord bot in Python whose generator commands cover image generation from a prompt, Gemini-backed question answering, and text-to-speech returned to the channel as an audio file.',
@@ -197,6 +227,8 @@ export const projects: Project[] = [
   },
   {
     title: 'Viz-ED',
+    icon: 'pen',
+    accent: 'slate',
     subtitle: 'Air-writing letter practice for dyslexic students',
     points: [
       'Built a Flask app that turns a webcam into a tracing surface: MediaPipe follows the index fingertip, and the stroke runs green inside the target letter and red outside it, so the correction arrives while the child is still drawing.',
@@ -207,6 +239,8 @@ export const projects: Project[] = [
   },
   {
     title: 'FaceClustering',
+    icon: 'face',
+    accent: 'sage',
     subtitle: 'Find every photo of one person in an event photo set',
     points: [
       'Indexed every face in a set of event photos with ArcFace on GPU — InsightFace, falling back to CPU when CUDA is absent — writing L2-normalized embeddings into a FAISS inner-product index, so a search is one cosine lookup.',

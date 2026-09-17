@@ -40,6 +40,23 @@
   --calm: #b4512f;
   --trace: #ece7de;
   --elevate: 0 4px 16px -2px rgb(31 29 27 / 0.08), 0 0 0 1px var(--rule);
+
+  /* Card marks. A muted wash behind a tinted glyph — the pastel suite the
+     design system reserves for quiet, non-jarring status, used here so a
+     grid of projects reads as a set rather than a row of identical tiles.
+     These never carry meaning the way `signal` and `calm` do. */
+  --tint-terracotta-bg: #f6e3db;
+  --tint-terracotta-fg: #a8482a;
+  --tint-amber-bg: #f8e9d2;
+  --tint-amber-fg: #8a5310;
+  --tint-sage-bg: #dfeade;
+  --tint-sage-fg: #3d6b47;
+  --tint-periwinkle-bg: #e2e5f4;
+  --tint-periwinkle-fg: #4a548c;
+  --tint-teal-bg: #d8ebe6;
+  --tint-teal-fg: #1f6b5d;
+  --tint-slate-bg: #e5e4e6;
+  --tint-slate-fg: #4e4d56;
 }
 
 .dark {
@@ -53,6 +70,19 @@
   --calm: #e07a5f;
   --trace: #24252a;
   --elevate: 0 4px 16px -2px rgb(0 0 0 / 0.5), 0 0 0 1px var(--rule);
+
+  --tint-terracotta-bg: #33211c;
+  --tint-terracotta-fg: #e59477;
+  --tint-amber-bg: #33261a;
+  --tint-amber-fg: #f0b875;
+  --tint-sage-bg: #212b25;
+  --tint-sage-fg: #9ec4a6;
+  --tint-periwinkle-bg: #222536;
+  --tint-periwinkle-fg: #a8b5e6;
+  --tint-teal-bg: #16302c;
+  --tint-teal-fg: #6ec9b6;
+  --tint-slate-bg: #23242a;
+  --tint-slate-fg: #9ca1b0;
 }
 
 @theme inline {
