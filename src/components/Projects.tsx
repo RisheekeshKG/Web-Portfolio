@@ -33,7 +33,11 @@ function ProjectCard({
 }) {
   return (
     <li className="group relative flex items-start gap-3.5 rounded-lg border border-rule bg-panel-2 p-4 transition-colors hover:border-calm/35">
-      <ProjectMark project={project} />
+      <ProjectMark
+        icon={project.icon}
+        accent={project.accent}
+        label={project.title}
+      />
 
       <div className="min-w-0 flex-1">
         <h3 className="text-body leading-snug tracking-[-0.01em]">

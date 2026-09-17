@@ -92,7 +92,12 @@ export function ProjectDialog({
         </button>
 
         <div className="flex items-center gap-4 pr-12">
-          <ProjectMark project={project} size="lg" />
+          <ProjectMark
+            icon={project.icon}
+            accent={project.accent}
+            label={project.title}
+            size="lg"
+          />
           <h3
             id="project-dialog-title"
             className="text-h3 leading-tight tracking-[-0.015em]"

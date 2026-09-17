@@ -94,6 +94,10 @@ export type Role = {
   href?: string
   points: string[]
   result?: Result
+  /** Stack, for a role shown as a panel rather than a list row. */
+  tags?: string[]
+  icon?: ProjectIcon
+  accent?: ProjectAccent
 }
 
 export const experience: Role[] = [
@@ -128,7 +132,11 @@ export const systemProjects: Role[] = [
   {
     org: 'PSG Team Aurora',
     title: 'Mars Rover Project',
+    href: 'https://psgteamaurora.in/',
+    icon: 'robot',
+    accent: 'terracotta',
     result: { value: '96%', label: 'arrow-detection accuracy' },
+    tags: ['YOLOv8', 'BLIP', 'ArUco', 'ROS'],
     points: [
       'Trained a custom arrow-detection model on a self-collected, annotated dataset using YOLOv8, achieving 96% accuracy.',
       'Integrated YOLOv8, BLIP, and ArUco markers for scene understanding and robotic decision-making, and enhanced a ROS-based dashboard with live camera, depth visualization, and terminal logs.',

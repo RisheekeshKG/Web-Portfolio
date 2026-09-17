@@ -1,34 +1,95 @@
-import { Points, Result, Section } from '@/components/Section'
+import { ProjectMark } from '@/components/ProjectMark'
+import { Section } from '@/components/Section'
 import { systemProjects, type Role } from '@/data/site'
-import { GUTTER, SHEET } from '@/lib/layout'
 
-function Entry({ role }: { role: Role }) {
+/**
+ * One entry, so it gets a panel rather than a row in a list of one. The
+ * headline number sits in its own cell at the end, where a spec sheet puts
+ * the figure that justifies the page.
+ */
+function SystemPanel({ role }: { role: Role }) {
   return (
-    <li className={`${SHEET} border-t border-rule pt-6`}>
-      <div>
-        <h3 className="text-h3 leading-tight tracking-[-0.015em]">{role.org}</h3>
-        <p className="mt-1 font-mono text-small text-calm">{role.title}</p>
-        <Points points={role.points} />
-      </div>
+    <article className="overflow-hidden rounded-lg border border-rule bg-panel-2 shadow-elevate">
+      <header className="flex flex-wrap items-center gap-x-4 gap-y-3 border-b border-rule p-5 sm:p-6">
+        <ProjectMark
+          icon={role.icon}
+          accent={role.accent}
+          label={role.org}
+          size="lg"
+        />
 
-      <div className={GUTTER}>
-        {role.period && (
-          <p className="font-mono text-micro text-muted">{role.period}</p>
+        <div className="min-w-0">
+          <h3 className="text-h3 leading-tight tracking-[-0.015em]">
+            {role.org}
+          </h3>
+          <p className="mt-1 font-mono text-small text-calm">{role.title}</p>
+        </div>
+
+        {role.href && (
+          <a
+            href={role.href}
+            target="_blank"
+            rel="noreferrer"
+            className="ml-auto shrink-0 rounded-sm border border-rule bg-panel px-3 py-2 font-mono text-micro text-muted transition-colors hover:border-calm hover:text-ink"
+          >
+            {new URL(role.href).hostname.replace(/^www\./, '')}{' '}
+            <span aria-hidden="true">↗</span>
+          </a>
         )}
-        {role.result && <Result {...role.result} />}
+      </header>
+
+      <div className="grid gap-x-10 gap-y-6 p-5 sm:p-6 md:grid-cols-[minmax(0,1fr)_12rem]">
+        <div className="space-y-3">
+          {role.points.map((point) => (
+            <p
+              key={point}
+              className="max-w-[68ch] text-small leading-relaxed text-pretty text-muted"
+            >
+              {point}
+            </p>
+          ))}
+        </div>
+
+        <div className="md:text-right">
+          {role.result && (
+            <p>
+              <span className="measure block text-h2 leading-none">
+                {role.result.value}
+              </span>
+              <span className="mt-2 block font-mono text-micro leading-snug text-muted">
+                {role.result.label}
+              </span>
+            </p>
+          )}
+
+          {role.tags && (
+            <ul className="mt-5 flex flex-wrap gap-1.5 md:justify-end">
+              {role.tags.map((tag) => (
+                <li key={tag} className="chip">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
-    </li>
+    </article>
   )
 }
 
 export function SystemProject() {
   return (
     <Section id="system" title="System Project" meta="team competition work">
-      <ol className="space-y-8">
+      <p className="max-w-[58ch] text-pretty text-muted">
+        The perception stack for a competition Mars rover, built with the
+        university team rather than alone.
+      </p>
+
+      <div className="mt-8 space-y-6">
         {systemProjects.map((role) => (
-          <Entry key={`${role.org}-${role.title}`} role={role} />
+          <SystemPanel key={`${role.org}-${role.title}`} role={role} />
         ))}
-      </ol>
+      </div>
     </Section>
   )
 }

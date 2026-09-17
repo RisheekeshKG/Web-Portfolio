@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from 'react'
-import type { Project, ProjectIcon } from '@/data/site'
+import type { ProjectAccent, ProjectIcon } from '@/data/site'
 
 /**
  * Drawn here rather than pulled from an icon package: seven glyphs is less
@@ -63,13 +63,17 @@ function monogram(title: string) {
  * accent variable, so a tile cannot drift out of the palette.
  */
 export function ProjectMark({
-  project,
+  icon,
+  accent = 'slate',
+  label,
   size = 'md',
 }: {
-  project: Project
+  icon?: ProjectIcon
+  accent?: ProjectAccent
+  /** Falls back to this title's initial when there is no icon. */
+  label?: string
   size?: 'md' | 'lg'
 }) {
-  const accent = project.accent ?? 'slate'
   const fg = `var(--tint-${accent}-fg)`
   const bg = `var(--tint-${accent}-bg)`
 
@@ -89,7 +93,7 @@ export function ProjectMark({
       style={style}
       className={`grid shrink-0 place-items-center border font-mono text-lead ${box}`}
     >
-      {project.icon ? (
+      {icon ? (
         <svg
           viewBox="0 0 24 24"
           fill="none"
@@ -99,10 +103,10 @@ export function ProjectMark({
           strokeLinejoin="round"
           className={glyph}
         >
-          {ICONS[project.icon]}
+          {ICONS[icon]}
         </svg>
       ) : (
-        monogram(project.title)
+        monogram(label ?? '')
       )}
     </span>
   )
