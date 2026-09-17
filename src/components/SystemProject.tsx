@@ -62,17 +62,23 @@ function SystemPanel({ role }: { role: Role }) {
             </p>
           )}
 
-          {role.tags && (
-            <ul className="mt-5 flex flex-wrap gap-1.5 md:justify-end">
-              {role.tags.map((tag) => (
-                <li key={tag} className="chip">
-                  {tag}
-                </li>
-              ))}
-            </ul>
-          )}
         </div>
       </div>
+
+      {/* The stack gets the full width of the panel rather than the gutter the
+          figure sits in: four chips in a 12rem column left the fourth stranded
+          on a line of its own. */}
+      {role.tags && (
+        <footer className="border-t border-rule px-5 py-4 sm:px-6">
+          <ul className="flex flex-wrap gap-1.5">
+            {role.tags.map((tag) => (
+              <li key={tag} className="chip">
+                {tag}
+              </li>
+            ))}
+          </ul>
+        </footer>
+      )}
     </article>
   )
 }
