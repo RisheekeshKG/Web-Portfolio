@@ -76,9 +76,21 @@ export type Result = {
 
 export type Role = {
   org: string
+  /** Shorter form for the timeline pill, where the full legal name will not fit. */
+  short?: string
   title: string
-  /** Omitted for ongoing team work with no fixed term. */
+  /**
+   * First and last month of the role, `YYYY-MM`. These drive the timeline's
+   * proportions and the displayed period, so a role is placed by its real
+   * dates rather than by the order it is listed in. Omit `end` while ongoing;
+   * omit both for team work with no fixed term.
+   */
+  start?: string
+  end?: string
+  /** Fallback label for a role with no dates. */
   period?: string
+  /** Official page for the organisation, when there is one to link to. */
+  href?: string
   points: string[]
   result?: Result
 }
@@ -86,8 +98,10 @@ export type Role = {
 export const experience: Role[] = [
   {
     org: 'Payoda Technology Inc.',
+    short: 'Payoda',
     title: 'Requirement Gathering Agent Workflow',
-    period: 'Jun 2026 — Jul 2026',
+    start: '2026-06',
+    end: '2026-07',
     result: { value: '60%', label: 'less manual documentation' },
     points: [
       'Built an enterprise requirements-management platform using AI to generate backlog specifications, epics, and user stories automatically, reducing manual documentation effort by 60%.',
@@ -96,8 +110,10 @@ export const experience: Role[] = [
   },
   {
     org: 'Rhodnet AI Private Limited',
+    short: 'Rhodnet AI',
     title: 'Face Recognition & Clustering',
-    period: 'Aug 2025 — Nov 2025',
+    start: '2025-08',
+    end: '2025-11',
     result: { value: '37%', label: 'faster over 2,000+ images' },
     points: [
       'Built a DeepFace recognition system for 2000+ event images, optimizing preprocessing to reduce processing time by 37%.',
