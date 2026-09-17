@@ -205,6 +205,16 @@ export const projects: Project[] = [
     tags: ['Python', 'Flask', 'OpenCV', 'MediaPipe', 'MongoDB'],
     repo: 'https://github.com/RisheekeshKG/Viz-ED',
   },
+  {
+    title: 'FaceClustering',
+    subtitle: 'Find every photo of one person in an event photo set',
+    points: [
+      'Indexed every face in a set of event photos with ArcFace on GPU — InsightFace, falling back to CPU when CUDA is absent — writing L2-normalized embeddings into a FAISS inner-product index, so a search is one cosine lookup.',
+      'Grouped those faces into people with HDBSCAN, its parameters scaled to the size of the set, and tuned the same-person threshold from the intra-cluster similarity each event actually shows rather than shipping one fixed cut-off. Progress streams to the React client over a WebSocket.',
+    ],
+    tags: ['Python', 'FastAPI', 'InsightFace', 'FAISS', 'HDBSCAN'],
+    repo: 'https://github.com/RisheekeshKG/Face_Clustering_RhodnetAI_GPU_Enabled',
+  },
 ]
 
 export const research = {
