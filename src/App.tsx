@@ -1,5 +1,6 @@
 import { About } from '@/components/About'
 import { Achievements } from '@/components/Achievements'
+import { Bookshelf } from '@/components/Bookshelf'
 import { Activity } from '@/components/Activity'
 import { Contact } from '@/components/Contact'
 import { Experience } from '@/components/Experience'
@@ -37,6 +38,7 @@ function App() {
         <Research />
         <Activity />
         <Achievements />
+        <Bookshelf />
         <Contact />
       </main>
 

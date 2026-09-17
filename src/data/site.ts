@@ -22,6 +22,7 @@ export const sections = [
   { id: 'research', label: 'Research' },
   { id: 'activity', label: 'Activity' },
   { id: 'achievements', label: 'Awards' },
+  { id: 'bookshelf', label: 'Bookshelf' },
   { id: 'contact', label: 'Contact' },
 ] as const
 
@@ -249,6 +250,47 @@ export const projects: Project[] = [
     ],
     tags: ['Python', 'FastAPI', 'InsightFace', 'FAISS', 'HDBSCAN'],
     repo: 'https://github.com/RisheekeshKG/Face_Clustering_RhodnetAI_GPU_Enabled',
+  },
+]
+
+export type Book = {
+  title: string
+  /** Shorter form for the spine, where the full title will not fit. */
+  spine?: string
+  author: string
+  accent: ProjectAccent
+}
+
+/**
+ * Spines rather than covers: no cover art is being borrowed, and a shelf is
+ * how these were actually read — a few at a time, side by side.
+ */
+export const bookshelf: Book[] = [
+  {
+    title: 'Atomic Habits',
+    author: 'James Clear',
+    accent: 'terracotta',
+  },
+  {
+    title: 'The 80/20 Principle',
+    author: 'Richard Koch',
+    accent: 'amber',
+  },
+  {
+    title: 'The Art of Laziness',
+    author: 'Library Mindset',
+    accent: 'sage',
+  },
+  {
+    title: 'Hands-On Machine Learning with Scikit-Learn, Keras, and TensorFlow',
+    spine: 'Hands-On Machine Learning',
+    author: 'Aurélien Géron',
+    accent: 'teal',
+  },
+  {
+    title: 'Winning in the Digital Age',
+    author: 'Nitin Seth',
+    accent: 'periwinkle',
   },
 ]
 
