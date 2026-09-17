@@ -173,6 +173,26 @@ export const projects: Project[] = [
     ],
     tags: ['Pygame', 'LangChain', 'OpenAI'],
   },
+  {
+    title: 'DeFi Credit Scoring',
+    subtitle: 'Wallet credit scores from raw Aave V2 transaction history',
+    points: [
+      'Turned 100K+ nested Aave V2 transaction records into wallet-level features — repayment, liquidations, deposit-to-borrow ratio, and activity span — scoring 3,497 wallets from 0 to 1000.',
+      'Labelled the training set with an interpretable rule-based heuristic, then fit an XGBoost regressor on it that beat RandomForest on RMSE and score stability. One command takes raw JSON to scored CSV.',
+    ],
+    tags: ['Python', 'XGBoost', 'pandas', 'scikit-learn'],
+    repo: 'https://github.com/RisheekeshKG/DeFi-Credit-Scoring-Aave-V2-Transactions-Data',
+  },
+  {
+    title: 'Ei-Gen',
+    subtitle: 'AI Discord bot for image, text, and speech generation',
+    points: [
+      'Built a Discord bot in Python whose generator commands cover image generation from a prompt, Gemini-backed question answering, and text-to-speech returned to the channel as an audio file.',
+      'Wrapped the generators in the things a live server needs: VADER sentiment moderation loaded as an extension, a rock-paper-scissors game, Minecraft server status, and role assignment on member join.',
+    ],
+    tags: ['Python', 'discord.py', 'Gemini', 'NLTK'],
+    repo: 'https://github.com/RisheekeshKG/Ei-Gen',
+  },
 ]
 
 export const research = {
