@@ -200,6 +200,7 @@ export const projects: Project[] = [
       'Developed component-based progression using Pygame, LangChain, and OpenAI, where collected robot parts unlock AI-generated explanations of their roles.',
     ],
     tags: ['Pygame', 'LangChain', 'OpenAI'],
+    repo: 'https://github.com/RisheekeshKG/The-Atlas-Protocol',
   },
   {
     title: 'DeFi Credit Scoring',
