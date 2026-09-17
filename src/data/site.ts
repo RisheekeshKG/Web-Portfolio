@@ -14,19 +14,27 @@ export const site = {
   },
 }
 
+/**
+ * Every section, in page order. `primary` marks the few the navbar carries:
+ * nine labels made the island wider than the content it sits over. The rest
+ * are still tracked, still listed in the menu, and still arrived at by
+ * scrolling — add `primary: true` to put one back on the bar.
+ */
 export const sections = [
-  { id: 'about', label: 'About' },
-  { id: 'experience', label: 'Experience' },
+  { id: 'about', label: 'About', primary: true },
+  { id: 'experience', label: 'Experience', primary: true },
   { id: 'system', label: 'System Project' },
-  { id: 'projects', label: 'Projects' },
-  { id: 'research', label: 'Research' },
+  { id: 'projects', label: 'Projects', primary: true },
+  { id: 'research', label: 'Research', primary: true },
   { id: 'activity', label: 'Activity' },
   { id: 'achievements', label: 'Awards' },
   { id: 'bookshelf', label: 'Bookshelf' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'contact', label: 'Contact', primary: true },
 ] as const
 
 export const sectionIds = sections.map((section) => section.id)
+
+export const navSections = sections.filter((section) => 'primary' in section)
 
 export const about = [
   'I am an AI and Data Science undergraduate at PSG iTech, concurrently pursuing a BS in Data Science at IIT Madras. Most of my work sits where machine learning meets a real interface — agent workflows, vision systems, and the applications that make them usable.',

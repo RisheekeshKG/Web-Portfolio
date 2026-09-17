@@ -5,7 +5,7 @@ import { sections, site } from '@/data/site'
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const
 
-export function MobileMenu({
+export function SectionMenu({
   open,
   onClose,
   active,
@@ -36,14 +36,14 @@ export function MobileMenu({
     <AnimatePresence>
       {open && (
         <motion.div
-          id="mobile-menu"
+          id="section-menu"
           initial={reducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
           animate={reducedMotion ? { opacity: 1 } : { clipPath: 'inset(0 0 0% 0)' }}
           exit={reducedMotion ? { opacity: 0 } : { clipPath: 'inset(0 0 100% 0)' }}
           transition={{ duration: 0.45, ease: easeOutExpo }}
-          className="fixed inset-0 z-50 flex flex-col bg-panel lg:hidden"
+          className="fixed inset-0 z-50 flex flex-col bg-panel"
         >
-          <div className="flex items-center justify-between border-b border-rule px-6 py-3">
+          <div className="mx-auto flex w-full max-w-3xl items-center justify-between border-b border-rule px-6 py-3">
             <span className="font-mono text-small">{site.name}</span>
             <button
               type="button"
@@ -65,7 +65,7 @@ export function MobileMenu({
             </button>
           </div>
 
-          <nav aria-label="Sections" className="flex-1 overflow-y-auto px-6 py-6">
+          <nav aria-label="Sections" className="mx-auto w-full max-w-3xl flex-1 overflow-y-auto px-6 py-6">
             <ul>
               {sections.map((section) => (
                 <li key={section.id}>

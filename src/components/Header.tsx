@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
-import { MobileMenu } from '@/components/MobileMenu'
+import { SectionMenu } from '@/components/SectionMenu'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import { useActiveSection } from '@/hooks/useActiveSection'
-import { sectionIds, sections, site } from '@/data/site'
+import { navSections, sectionIds, sections, site } from '@/data/site'
 
 const easeOutExpo = [0.16, 1, 0.3, 1] as const
 
@@ -62,7 +62,7 @@ export function Header() {
 
           <nav aria-label="Sections" className="hidden lg:block">
             <ul className="flex items-center gap-0.5">
-              {sections.map((section) => {
+              {navSections.map((section) => {
                 const isActive = active === section.id
                 return (
                   <li key={section.id}>
@@ -108,10 +108,10 @@ export function Header() {
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
-              aria-label="Open menu"
+              aria-label="Open all sections"
               aria-expanded={menuOpen}
-              aria-controls="mobile-menu"
-              className="grid size-9 place-items-center rounded-full text-muted transition-colors hover:bg-panel-2 hover:text-ink lg:hidden"
+              aria-controls="section-menu"
+              className="grid size-9 place-items-center rounded-full text-muted transition-colors hover:bg-panel-2 hover:text-ink"
             >
               <svg
                 viewBox="0 0 24 24"
@@ -129,7 +129,7 @@ export function Header() {
         </motion.div>
       </header>
 
-      <MobileMenu
+      <SectionMenu
         open={menuOpen}
         onClose={() => setMenuOpen(false)}
         active={active}
