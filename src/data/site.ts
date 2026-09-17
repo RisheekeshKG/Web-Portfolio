@@ -150,19 +150,21 @@ export const projects: Project[] = [
     title: 'VigilAI',
     subtitle: 'Agentic RTL verification platform for Verilog design validation',
     points: [
-      'Built an agent-based automation framework for VLSI verification workflows using React (TypeScript), FastAPI, LangGraph, and Google Gemini.',
-      'Automated log analysis with trained ML models and a human-in-the-loop feedback pipeline that flags high-risk tests and recommends RTL optimizations.',
+      'Built a React and FastAPI studio that syntax-checks Verilog, picks its own simulator — Icarus for digital, Ngspice for Verilog-AMS — and returns a waveform image, generating a minimal testbench when a design file ships without one.',
+      'Drove verification with a LangGraph agent on Gemini that reads the component datasheet alongside the code, then loops analyse, fix and recompile for up to five iterations before writing a final report.',
     ],
     tags: ['React', 'TypeScript', 'FastAPI', 'LangGraph', 'Gemini'],
+    repo: 'https://github.com/RisheekeshKG/Vigil-AI',
   },
   {
     title: 'Lyf-O',
     subtitle: 'Productivity application with agent support',
     points: [
-      'Built a cross-platform productivity application with Gmail authentication, workspace management, and personalized templates for Kanban boards, habits, journals, and daily workflows.',
-      'Developed an AI assistant and recommendation system that creates, updates, and suggests templates from user activity and natural-language commands.',
+      'Built a cross-platform Electron and FastAPI desktop app — Gmail inbox, Kanban work tasks, habits and journals — where the React UI reads and writes its own JSON files over Electron IPC.',
+      'Backed it with a LangChain agent on Gemini that creates and updates those files from chat, and a K-Prototypes model that recommends templates from user clusters. It ships as one installer with the backend compiled in, so nothing else needs installing.',
     ],
-    tags: ['Cross-platform', 'AI Agents', 'Productivity'],
+    tags: ['Electron', 'React', 'FastAPI', 'LangChain', 'Gemini'],
+    repo: 'https://github.com/RisheekeshKG/Lyf-O',
   },
   {
     title: 'The Atlas Protocol',
