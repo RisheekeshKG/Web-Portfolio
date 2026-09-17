@@ -3,7 +3,7 @@ export const site = {
   role: 'AI & Software Engineer',
   location: 'Coimbatore, India',
   tagline:
-    'I build systems that turn a noisy signal into a number someone can act on: perception for a Mars rover, face recognition at event scale, and a 16-hour air-quality forecast.',
+    'Hey! I build AI systems people actually use — from the model to the thing you click on. Always up for a problem I have not solved before.',
   email: 'risheekeshkg@gmail.com',
   phone: '+91 93847 62478',
   availability: 'Open to new opportunities',
