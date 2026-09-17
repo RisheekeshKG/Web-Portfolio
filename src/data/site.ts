@@ -195,6 +195,16 @@ export const projects: Project[] = [
     tags: ['Python', 'discord.py', 'Gemini', 'NLTK'],
     repo: 'https://github.com/RisheekeshKG/Ei-Gen',
   },
+  {
+    title: 'Viz-ED',
+    subtitle: 'Air-writing letter practice for dyslexic students',
+    points: [
+      'Built a Flask app that turns a webcam into a tracing surface: MediaPipe follows the index fingertip, and the stroke runs green inside the target letter and red outside it, so the correction arrives while the child is still drawing.',
+      'Scored each attempt as the contour area actually covered minus the spill outside it, and gated the next level in MongoDB behind a pass, so a section unlocks in order rather than all at once.',
+    ],
+    tags: ['Python', 'Flask', 'OpenCV', 'MediaPipe', 'MongoDB'],
+    repo: 'https://github.com/RisheekeshKG/Viz-ED',
+  },
 ]
 
 export const research = {
