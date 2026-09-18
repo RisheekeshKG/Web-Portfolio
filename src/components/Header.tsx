@@ -8,10 +8,11 @@ import { navSections, sectionIds, sections, site } from '@/data/site'
 const easeOutExpo = [0.16, 1, 0.3, 1] as const
 
 /**
- * A floating island rather than a bar across the top: it holds its own shape,
- * and once the page has moved it drops the name it no longer needs to state —
- * the pill closes the gap around it, so the chrome shrinks to what is still
- * doing work.
+ * A floating island rather than a bar across the top. At rest it carries the
+ * name and the primary sections; once the page has moved it sheds both and
+ * keeps only the section you are in, closing the gap around what it dropped.
+ * The full list stays one click away in the menu, so collapsing the bar costs
+ * no reach.
  */
 export function Header() {
   const active = useActiveSection(sectionIds)
@@ -58,32 +59,44 @@ export function Header() {
           )}
         </AnimatePresence>
 
-        <nav aria-label="Sections" className="hidden lg:block">
-          <ul className="flex items-center gap-0.5">
-            {navSections.map((section) => {
-              const isActive = active === section.id
-              return (
-                <li key={section.id}>
-                  <a
-                    href={`#${section.id}`}
-                    aria-current={isActive ? 'true' : undefined}
-                    className={`block rounded-full px-3 py-1.5 font-mono text-micro whitespace-nowrap transition-colors ${
-                      isActive
-                        ? 'bg-panel-2 text-calm'
-                        : 'text-muted hover:bg-panel-2 hover:text-ink'
-                    }`}
-                  >
-                    {section.label}
-                  </a>
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
+        <AnimatePresence initial={false} mode="popLayout">
+          {!scrolled && (
+            <motion.nav
+              key="nav"
+              layout
+              aria-label="Sections"
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: 'auto' }}
+              exit={{ opacity: 0, width: 0 }}
+              transition={morph}
+              className="hidden overflow-hidden lg:block"
+            >
+              <ul className="flex items-center gap-0.5">
+                {navSections.map((section) => {
+                  const isActive = active === section.id
+                  return (
+                    <li key={section.id}>
+                      <a
+                        href={`#${section.id}`}
+                        aria-current={isActive ? 'true' : undefined}
+                        className={`block rounded-full px-3 py-1.5 font-mono text-micro whitespace-nowrap transition-colors ${
+                          isActive
+                            ? 'bg-panel-2 text-calm'
+                            : 'text-muted hover:bg-panel-2 hover:text-ink'
+                        }`}
+                      >
+                        {section.label}
+                      </a>
+                    </li>
+                  )
+                })}
+              </ul>
+            </motion.nav>
+          )}
+        </AnimatePresence>
 
-        {/* On a phone the nav is behind the menu button, so the island says
-            where you are instead — the one place that label is not already
-            on screen. */}
+        {/* What the island keeps once the page has moved: not the whole map,
+            just where you are. Everything else is behind the menu button. */}
         <AnimatePresence initial={false} mode="popLayout">
           {scrolled && active && (
             <motion.span
@@ -93,7 +106,7 @@ export function Header() {
               animate={{ opacity: 1, width: 'auto' }}
               exit={{ opacity: 0, width: 0 }}
               transition={morph}
-              className="overflow-hidden rounded-full px-3 py-1 font-mono text-micro whitespace-nowrap text-calm lg:hidden"
+              className="overflow-hidden rounded-full px-3 py-1 font-mono text-micro whitespace-nowrap text-calm"
             >
               {sections.find((section) => section.id === active)?.label}
             </motion.span>
