@@ -44,21 +44,28 @@ export const about = [
 export type Education = {
   degree: string
   institution: string
+  /** Shorter form for the card's mark and tight spaces. */
+  short?: string
   period: string
   detail?: string
+  accent?: ProjectAccent
 }
 
 export const education: Education[] = [
   {
     degree: 'B.Tech, Artificial Intelligence and Data Science',
     institution: 'PSG Institute of Technology and Applied Research',
+    short: 'PSG iTech',
     period: 'Aug 2023 — Present',
     detail: 'CGPA 8.21',
+    accent: 'sage',
   },
   {
     degree: 'B.S., Data Science and Applications',
     institution: 'Indian Institute of Technology Madras',
+    short: 'IIT Madras',
     period: 'Jan 2024 — Present',
+    accent: 'periwinkle',
   },
 ]
 
